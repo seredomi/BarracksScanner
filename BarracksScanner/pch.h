@@ -3,6 +3,7 @@
 #include <unknwn.h>
 #include <restrictederrorinfo.h>
 #include <hstring.h>
+#include <string>
 
 // Undefine GetCurrentTime macro to prevent
 // conflict with Storyboard::GetCurrentTime

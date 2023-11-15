@@ -40,4 +40,6 @@ namespace winrt::BarracksScanner::implementation
         window = make<MainWindow>();
         window.Activate();
     }
+
+
 }

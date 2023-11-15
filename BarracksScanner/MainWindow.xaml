@@ -10,17 +10,17 @@
 
     <NavigationView PaneDisplayMode="Auto" IsSettingsVisible="False" IsBackButtonVisible="Collapsed">
         <NavigationView.MenuItems>
-            <NavigationViewItem Content="Scanner">
+            <NavigationViewItem Content="Scanner" x:Name="scanner" Tag="scanner">
                 <NavigationViewItem.Icon>
                     <FontIcon FontFamily="Segoe Fluent Icons" Glyph="&#xEE6F;"/>
                 </NavigationViewItem.Icon>
             </NavigationViewItem>
-            <NavigationViewItem Content="Personnel">
+            <NavigationViewItem Content="Personnel" x:Name="personnel" Tag="personnel" >
                 <NavigationViewItem.Icon>
                     <FontIcon FontFamily="Segoe Fluent Icons" Glyph="&#xE779;"/>
                 </NavigationViewItem.Icon>
             </NavigationViewItem>
-            <NavigationViewItem Content="Logs">
+            <NavigationViewItem Content="Logs" x:Name="logs" Tag="personnel">
                 <NavigationViewItem.Icon>
                     <FontIcon FontFamily="Segoe Fluent Icons" Glyph="&#xE81C;"/>
                 </NavigationViewItem.Icon>

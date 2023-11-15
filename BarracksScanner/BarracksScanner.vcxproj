@@ -116,6 +116,7 @@
     <ClInclude Include="MainWindow.xaml.h">
       <DependentUpon>MainWindow.xaml</DependentUpon>
     </ClInclude>
+    <ClInclude Include="Person.h" />
   </ItemGroup>
   <ItemGroup>
     <ApplicationDefinition Include="App.xaml" />
@@ -132,6 +133,7 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
     </ClCompile>
     <ClCompile Include="$(GeneratedFilesDir)module.g.cpp" />
+    <ClCompile Include="Person.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Midl Include="MainWindow.idl">
