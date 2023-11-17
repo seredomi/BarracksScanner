@@ -117,10 +117,17 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
     </ClInclude>
     <ClInclude Include="Person.h" />
+    <ClInclude Include="ScannerPage.h">
+      <DependentUpon>ScannerPage.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ApplicationDefinition Include="App.xaml" />
     <Page Include="MainWindow.xaml" />
+    <Page Include="ScannerPage.xaml">
+      <SubType>Designer</SubType>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp">
@@ -134,11 +141,19 @@
     </ClCompile>
     <ClCompile Include="$(GeneratedFilesDir)module.g.cpp" />
     <ClCompile Include="Person.cpp" />
+    <ClCompile Include="ScannerPage.cpp">
+      <DependentUpon>ScannerPage.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Midl Include="MainWindow.idl">
       <SubType>Code</SubType>
       <DependentUpon>MainWindow.xaml</DependentUpon>
+    </Midl>
+    <Midl Include="ScannerPage.idl">
+      <DependentUpon>ScannerPage.xaml</DependentUpon>
+      <SubType>Code</SubType>
     </Midl>
   </ItemGroup>
   <ItemGroup>

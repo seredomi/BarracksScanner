@@ -1,0 +1,9 @@
+namespace BarracksScanner
+{
+    [default_interface]
+    runtimeclass ScannerPage : Microsoft.UI.Xaml.Controls.Page
+    {
+        ScannerPage();
+        Int32 MyProperty;
+    }
+}
