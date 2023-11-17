@@ -117,6 +117,10 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
     </ClInclude>
     <ClInclude Include="Person.h" />
+    <ClInclude Include="PersonnelPage.h">
+      <DependentUpon>PersonnelPage.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </ClInclude>
     <ClInclude Include="ScannerPage.h">
       <DependentUpon>ScannerPage.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -125,6 +129,9 @@
   <ItemGroup>
     <ApplicationDefinition Include="App.xaml" />
     <Page Include="MainWindow.xaml" />
+    <Page Include="PersonnelPage.xaml">
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="ScannerPage.xaml">
       <SubType>Designer</SubType>
     </Page>
@@ -141,6 +148,10 @@
     </ClCompile>
     <ClCompile Include="$(GeneratedFilesDir)module.g.cpp" />
     <ClCompile Include="Person.cpp" />
+    <ClCompile Include="PersonnelPage.cpp">
+      <DependentUpon>PersonnelPage.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </ClCompile>
     <ClCompile Include="ScannerPage.cpp">
       <DependentUpon>ScannerPage.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -150,6 +161,10 @@
     <Midl Include="MainWindow.idl">
       <SubType>Code</SubType>
       <DependentUpon>MainWindow.xaml</DependentUpon>
+    </Midl>
+    <Midl Include="PersonnelPage.idl">
+      <DependentUpon>PersonnelPage.xaml</DependentUpon>
+      <SubType>Code</SubType>
     </Midl>
     <Midl Include="ScannerPage.idl">
       <DependentUpon>ScannerPage.xaml</DependentUpon>
