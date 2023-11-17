@@ -13,9 +13,14 @@ namespace winrt::BarracksScanner::implementation
             // See https://github.com/microsoft/cppwinrt/tree/master/nuget#initializecomponent
         }
 
-        winrt::hstring ScannedID();
-        void ScannedID(winrt::hstring);
+        hstring ScannedID();
+        void ScannedID(hstring);
 
+        void NavView_SelectionChanged(Microsoft::UI::Xaml::Controls::NavigationView const& sender,
+            Microsoft::UI::Xaml::Controls::NavigationViewSelectionChangedEventArgs const& args);
+
+        // void ContentFrame_NavigationFailed(Microsoft::UI::Xaml::Controls::NavigationView const& sender,
+        //     Microsoft::UI::Xaml::Controls::NavigationViewSelectionChangedEventArgs const& args);
     };
 }
 

@@ -4,6 +4,7 @@
 #include "MainWindow.g.cpp"
 #endif
 
+
 using namespace winrt;
 using namespace Microsoft::UI::Xaml;
 
@@ -12,11 +13,34 @@ using namespace Microsoft::UI::Xaml;
 
 namespace winrt::BarracksScanner::implementation
 {
+	// void ContentFrame_NavigationFailed(Controls::NavigationView const& sender,
+	// 	Controls::NavigationViewSelectionChangedEventArgs const& args) {
+	// 		throw hresult_not_implemented();
+	// }
 
-    winrt::hstring MainWindow::ScannedID() {
+    void MainWindow::NavView_SelectionChanged(Controls::NavigationView const& sender,
+        Controls::NavigationViewSelectionChangedEventArgs const& args) {
+
+        auto navItemTag = winrt::unbox_value<hstring>(args.SelectedItemContainer().Tag());
+
+		if (navItemTag == L"scanner") {
+			ContentFrame().Navigate(winrt::xaml_typename<BarracksScanner::ScannerPage>());
+		}
+		if (navItemTag == L"personnel") {
+			ContentFrame().Navigate(winrt::xaml_typename<BarracksScanner::PersonnelPage>());
+		}
+		if (navItemTag == L"logs") {
+			ContentFrame().Navigate(winrt::xaml_typename<BarracksScanner::LogsPage>());
+		}
+
+    }
+
+    hstring MainWindow::ScannedID() {
         return L"12345";
     }
-    void MainWindow::ScannedID(winrt::hstring id) {
+    void MainWindow::ScannedID(hstring id) {
         ScannedID(id);
     }
 }
+
+
