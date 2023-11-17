@@ -16,11 +16,11 @@ namespace winrt::BarracksScanner::implementation
         hstring ScannedID();
         void ScannedID(hstring);
 
-        void NavView_SelectionChanged(Microsoft::UI::Xaml::Controls::NavigationView const& sender,
-            Microsoft::UI::Xaml::Controls::NavigationViewSelectionChangedEventArgs const& args);
+        void NavView_Loaded(Windows::Foundation::IInspectable const&,
+            Microsoft::UI::Xaml::RoutedEventArgs const);
+        void NavView_SelectionChanged(Microsoft::UI::Xaml::Controls::NavigationView const&,
+            Microsoft::UI::Xaml::Controls::NavigationViewSelectionChangedEventArgs const&);
 
-        // void ContentFrame_NavigationFailed(Microsoft::UI::Xaml::Controls::NavigationView const& sender,
-        //     Microsoft::UI::Xaml::Controls::NavigationViewSelectionChangedEventArgs const& args);
     };
 }
 

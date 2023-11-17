@@ -9,6 +9,7 @@
     mc:Ignorable="d">
 
     <NavigationView x:Name="NavView"
+                    Loaded="NavView_Loaded"
                     PaneDisplayMode="Auto"
                     IsSettingsVisible="False"
                     IsBackButtonVisible="Collapsed"

@@ -4,7 +4,6 @@
 #include "MainWindow.g.cpp"
 #endif
 
-
 using namespace winrt;
 using namespace Microsoft::UI::Xaml;
 
@@ -18,7 +17,13 @@ namespace winrt::BarracksScanner::implementation
 	// 		throw hresult_not_implemented();
 	// }
 
-    void MainWindow::NavView_SelectionChanged(Controls::NavigationView const& sender,
+	void MainWindow::NavView_Loaded(IInspectable const&, RoutedEventArgs const) {
+		ContentFrame().Navigate(winrt::xaml_typename<BarracksScanner::ScannerPage>());
+		// not sure why this doesnt work
+		NavView().SelectedItem() = NavView().MenuItems().GetAt(0);
+	}
+
+    void MainWindow::NavView_SelectionChanged(Controls::NavigationView const&,
         Controls::NavigationViewSelectionChangedEventArgs const& args) {
 
         auto navItemTag = winrt::unbox_value<hstring>(args.SelectedItemContainer().Tag());
