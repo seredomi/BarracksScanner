@@ -13,6 +13,7 @@ namespace winrt::BarracksScanner::implementation
             // See https://github.com/microsoft/cppwinrt/tree/master/nuget#initializecomponent
         }
 
+
         hstring ScannedID();
         void ScannedID(hstring);
 
