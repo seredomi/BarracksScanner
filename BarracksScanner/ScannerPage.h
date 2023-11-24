@@ -8,12 +8,7 @@ namespace winrt::BarracksScanner::implementation
     {
         hstring scanBuffer;
 
-        ScannerPage() 
-        {
-            // Xaml objects should not call InitializeComponent during construction.
-            // See https://github.com/microsoft/cppwinrt/tree/master/nuget#initializecomponent
-            scanBuffer = L"";
-        }
+        ScannerPage();
 
         int32_t MyProperty();
         void MyProperty(int32_t value);
@@ -23,9 +18,9 @@ namespace winrt::BarracksScanner::implementation
 
         void ClickHandler(Windows::Foundation::IInspectable const& sender, Microsoft::UI::Xaml::RoutedEventArgs const& args);
 
-        void ScanHandler(Windows::UI::Core::CoreWindow, Windows::UI::Core::CharacterReceivedEventArgs);
+        void ScanHandler(Windows::Foundation::IInspectable const& sender, Microsoft::UI::Xaml::Input::KeyRoutedEventArgs const& args);
 
-        void InsertBlankCard();
+        void DisplayScanbuffer();
 
         void WaitForScan();
     };

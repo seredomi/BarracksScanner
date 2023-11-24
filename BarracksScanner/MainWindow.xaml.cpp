@@ -12,10 +12,6 @@ using namespace Microsoft::UI::Xaml;
 
 namespace winrt::BarracksScanner::implementation
 {
-	// void ContentFrame_NavigationFailed(Controls::NavigationView const& sender,
-	// 	Controls::NavigationViewSelectionChangedEventArgs const& args) {
-	// 		throw hresult_not_implemented();
-	// }
 
 	void MainWindow::NavView_Loaded(IInspectable const&, RoutedEventArgs const) {
 		ContentFrame().Navigate(winrt::xaml_typename<BarracksScanner::ScannerPage>());
@@ -30,7 +26,6 @@ namespace winrt::BarracksScanner::implementation
 
 		if (navItemTag == L"scanner") {
 			ContentFrame().Navigate(winrt::xaml_typename<BarracksScanner::ScannerPage>());
-			// Windows::UI::Core::ICoreWindow().IsInputEnabled(true);
 		}
 		if (navItemTag == L"personnel") {
 			ContentFrame().Navigate(winrt::xaml_typename<BarracksScanner::PersonnelPage>());
@@ -41,12 +36,6 @@ namespace winrt::BarracksScanner::implementation
 
     }
 
-    hstring MainWindow::ScannedID() {
-        return L"12345";
-    }
-    void MainWindow::ScannedID(hstring id) {
-        ScannedID(id);
-    }
 }
 
 

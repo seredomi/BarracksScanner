@@ -4,6 +4,5 @@ namespace BarracksScanner
     runtimeclass MainWindow : Microsoft.UI.Xaml.Window
     {
         MainWindow();
-        String ScannedID;
     }
 }

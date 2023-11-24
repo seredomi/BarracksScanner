@@ -14,9 +14,6 @@ namespace winrt::BarracksScanner::implementation
         }
 
 
-        hstring ScannedID();
-        void ScannedID(hstring);
-
         void NavView_Loaded(Windows::Foundation::IInspectable const&,
             Microsoft::UI::Xaml::RoutedEventArgs const);
         void NavView_SelectionChanged(Microsoft::UI::Xaml::Controls::NavigationView const&,

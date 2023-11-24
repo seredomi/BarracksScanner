@@ -4,6 +4,5 @@ namespace BarracksScanner
     runtimeclass ScannerPage : Microsoft.UI.Xaml.Controls.Page
     {
         ScannerPage();
-        Int32 MyProperty;
     }
 }
