@@ -58,6 +58,6 @@ namespace winrt::BarracksScanner::implementation
     }
 
     void ScannerPage::ScanHandler(Windows::UI::Core::CoreWindow, Windows::UI::Core::CharacterReceivedEventArgs) {
-        Microsoft::UI::Xaml::Window::Current().CoreWindow().
+        // Microsoft::UI::Xaml::Window::Current().CoreWindow().
     }
 }

@@ -30,7 +30,7 @@ namespace winrt::BarracksScanner::implementation
 
 		if (navItemTag == L"scanner") {
 			ContentFrame().Navigate(winrt::xaml_typename<BarracksScanner::ScannerPage>());
-			Windows::UI::Core::ICoreWindow().IsInputEnabled(true);
+			// Windows::UI::Core::ICoreWindow().IsInputEnabled(true);
 		}
 		if (navItemTag == L"personnel") {
 			ContentFrame().Navigate(winrt::xaml_typename<BarracksScanner::PersonnelPage>());
