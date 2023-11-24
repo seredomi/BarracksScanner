@@ -17,7 +17,7 @@
         <StackPanel x:Name="CardStack" Orientation="Vertical" Margin="40,16,0,0"
         >
             <TextBlock x:Name="ScannerHeader" FontSize="40" FontWeight="SemiBold" >Scanner</TextBlock>
-            <Button x:Name="Button" Click="ClickHandler">Click Me</Button>
+            <Button x:Name="Button" Click="ClickHandler" IsTabStop="False">Click Me</Button>
         </StackPanel>
 
     </ScrollPresenter>

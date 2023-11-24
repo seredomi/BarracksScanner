@@ -11,12 +11,10 @@ namespace winrt::BarracksScanner::implementation
 {
 
     ScannerPage::ScannerPage()
-        {
-            // Xaml objects should not call InitializeComponent during construction.
-            // See https://github.com/microsoft/cppwinrt/tree/master/nuget#initializecomponent
-            scanBuffer = L"test";
-            // this->Focus(Windows::UI::Xaml::FocusState());
-        }
+	{
+        ResetScanBuffer();
+		// this->Focus(Windows::UI::Xaml::FocusState());
+	}
 
 
     int32_t ScannerPage::MyProperty()
@@ -32,23 +30,20 @@ namespace winrt::BarracksScanner::implementation
     hstring ScannerPage::ScanBuffer() const& {
         return scanBuffer;
     }
-
-    void ScannerPage::ScanBuffer(const hstring str) {
+    void ScannerPage::ResetScanBuffer() {
+        scanBuffer = L"";
+    }
+    void ScannerPage::AddToScanBuffer(const hstring str) {
         scanBuffer = scanBuffer + str;
     }
 
     void ScannerPage::ClickHandler(IInspectable const&, RoutedEventArgs const&)
     {
         Button().Content(box_value(L"Clicked"));
-        ScannerPage::DisplayScanbuffer();
+        // ScannerPage::DisplayScanbuffer();
     }
 
     void ScannerPage::DisplayScanbuffer() {
-
-        Controls::Border card;
-        card.Width(600);
-        card.Height(400);
-        card.VerticalAlignment(VerticalAlignment::Top);
 
         Controls::TextBlock header;
         header.Text(scanBuffer);
@@ -68,19 +63,17 @@ namespace winrt::BarracksScanner::implementation
     }
 
 	void ScannerPage::ScanHandler(Windows::Foundation::IInspectable const&, Microsoft::UI::Xaml::Input::KeyRoutedEventArgs const& args) {
-        /*
-        if char is not enter, add to scanBuffer
-        else, insertblankpage for now 
-        */
+
         UINT scanCode = MapVirtualKey((UINT) args.Key(), MAPVK_VK_TO_CHAR);
         
-        // if its enter, display scanbuffer
-        if ((UINT) scanCode == 13) {
+        // if enter, display scanbuffer and reset it
+        if (scanCode == 13) {
             DisplayScanbuffer();
+            ResetScanBuffer();
         }
-        // else if its not a shift, add it to scanBuffer
-        else if ((UINT) scanCode != 0) {
-            ScanBuffer(hstring{ static_cast<wchar_t>(scanCode) });
+        // else if not shift, add it to scanBuffer
+        else if (scanCode != 0 && scanCode != 9) {
+            AddToScanBuffer(hstring{ static_cast<wchar_t>(scanCode) });
         }
     }
 

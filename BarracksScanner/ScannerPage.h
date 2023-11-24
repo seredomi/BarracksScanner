@@ -14,7 +14,8 @@ namespace winrt::BarracksScanner::implementation
         void MyProperty(int32_t value);
 
         hstring ScanBuffer() const&;
-        void ScanBuffer(const hstring);
+        void ResetScanBuffer();
+        void AddToScanBuffer(const hstring);
 
         void ClickHandler(Windows::Foundation::IInspectable const& sender, Microsoft::UI::Xaml::RoutedEventArgs const& args);
 
