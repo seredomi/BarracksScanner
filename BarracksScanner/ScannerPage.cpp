@@ -13,8 +13,6 @@ namespace winrt::BarracksScanner::implementation
     ScannerPage::ScannerPage()
 	{
         ResetScanBuffer();
-        readyToScan = true;
-        scanning = false;
 	}
 
     hstring ScannerPage::ScanBuffer() const& {
@@ -25,30 +23,12 @@ namespace winrt::BarracksScanner::implementation
     }
     void ScannerPage::AddToScanBuffer(const hstring str) {
         scanBuffer = scanBuffer + str;
-        BarcodeEntry().Text(scanBuffer);
-    }
-
-    void ScannerPage::ClickHandler(IInspectable const&, RoutedEventArgs const&)
-    {
-        Button().Content(box_value(L"Clicked"));
-    }
-
-    void ScannerPage::DisplayScanbuffer() {
-
-        Controls::TextBlock header;
-        header.Text(scanBuffer);
-        header.FontSize(30);
-
-        CardStack().Children().Append(header);
     }
 
     void ScannerPage::Print(hstring text) {
         Controls::TextBlock newTB;
         newTB.Text(text);
         CardStack().Children().Append(newTB);
-    }
-
-	void ScannerPage::TextHandler(Controls::TextBox const& sender, Controls::TextBoxTextChangingEventArgs const& args) {
     }
 
 	void ScannerPage::InputHandler(Windows::Foundation::IInspectable const&, Microsoft::UI::Xaml::Input::KeyRoutedEventArgs const& args) {
@@ -86,7 +66,6 @@ namespace winrt::BarracksScanner::implementation
                 Print(scanBuffer);
             }
 			ResetScanBuffer();
-			BarcodeEntry().Text(scanBuffer);
             charTimes.clear();
         }
 

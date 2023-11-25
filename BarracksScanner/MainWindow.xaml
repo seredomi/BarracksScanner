@@ -18,6 +18,7 @@
                     IsBackButtonVisible="Collapsed"
                     IsTabStop="False"
                     SelectionChanged="NavView_SelectionChanged"
+                    IsPaneToggleButtonVisible="False"
                     >
         <NavigationView.MenuItems>
             <NavigationViewItem Content="Scanner" x:Name="scanner" Tag="scanner" GotFocus="scanner_GotFocus">
