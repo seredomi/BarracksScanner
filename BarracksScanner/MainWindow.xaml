@@ -6,7 +6,9 @@
     xmlns:local="using:BarracksScanner"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    mc:Ignorable="d">
+    mc:Ignorable="d"
+    VisibilityChanged="Window_VisibilityChanged"
+    >
     
 
     <NavigationView x:Name="NavView"
@@ -14,20 +16,21 @@
                     PaneDisplayMode="Auto"
                     OpenPaneLength="180"
                     IsBackButtonVisible="Collapsed"
+                    IsTabStop="False"
                     SelectionChanged="NavView_SelectionChanged"
                     >
         <NavigationView.MenuItems>
-            <NavigationViewItem Content="Scanner" x:Name="scanner" Tag="scanner">
+            <NavigationViewItem Content="Scanner" x:Name="scanner" Tag="scanner" GotFocus="scanner_GotFocus">
                 <NavigationViewItem.Icon>
                     <FontIcon FontFamily="Segoe Fluent Icons" Glyph="&#xEE6F;"/>
                 </NavigationViewItem.Icon>
             </NavigationViewItem>
-            <NavigationViewItem Content="Personnel" x:Name="personnel" Tag="personnel" >
+            <NavigationViewItem Content="Personnel" x:Name="personnel" Tag="personnel" GotFocus="personnel_GotFocus">
                 <NavigationViewItem.Icon>
                     <FontIcon FontFamily="Segoe Fluent Icons" Glyph="&#xE779;"/>
                 </NavigationViewItem.Icon>
             </NavigationViewItem>
-            <NavigationViewItem Content="Logs" x:Name="logs" Tag="logs">
+            <NavigationViewItem Content="Logs" x:Name="logs" Tag="logs" GotFocus="logs_GotFocus">
                 <NavigationViewItem.Icon>
                     <FontIcon FontFamily="Segoe Fluent Icons" Glyph="&#xE81C;"/>
                 </NavigationViewItem.Icon>

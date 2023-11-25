@@ -19,6 +19,10 @@ namespace winrt::BarracksScanner::implementation
         void NavView_SelectionChanged(Microsoft::UI::Xaml::Controls::NavigationView const&,
             Microsoft::UI::Xaml::Controls::NavigationViewSelectionChangedEventArgs const&);
 
+        void scanner_GotFocus(winrt::Windows::Foundation::IInspectable, Microsoft::UI::Xaml::RoutedEventArgs const& args);
+        void personnel_GotFocus(winrt::Windows::Foundation::IInspectable, Microsoft::UI::Xaml::RoutedEventArgs const& args);
+        void logs_GotFocus(winrt::Windows::Foundation::IInspectable, Microsoft::UI::Xaml::RoutedEventArgs const& args);
+        void Window_VisibilityChanged(winrt::Windows::Foundation::IInspectable const& sender, winrt::Microsoft::UI::Xaml::WindowVisibilityChangedEventArgs const& args);
     };
 }
 

@@ -7,6 +7,9 @@ namespace winrt::BarracksScanner::implementation
     struct ScannerPage : ScannerPageT<ScannerPage>
     {
         hstring scanBuffer;
+        bool readyToScan;
+        bool scanning;
+        clock_t lastChar;
 
         ScannerPage();
 
@@ -17,13 +20,22 @@ namespace winrt::BarracksScanner::implementation
         void ResetScanBuffer();
         void AddToScanBuffer(const hstring);
 
-        void ClickHandler(Windows::Foundation::IInspectable const& sender, Microsoft::UI::Xaml::RoutedEventArgs const& args);
+        void ClickHandler(Windows::Foundation::IInspectable const&, Microsoft::UI::Xaml::RoutedEventArgs const&);
 
-        void ScanHandler(Windows::Foundation::IInspectable const& sender, Microsoft::UI::Xaml::Input::KeyRoutedEventArgs const& args);
+        void TextHandler(Microsoft::UI::Xaml::Controls::TextBox const&, Microsoft::UI::Xaml::Controls::TextBoxTextChangingEventArgs const&);
+        void ScanHandler(Windows::Foundation::IInspectable const&, Microsoft::UI::Xaml::Input::KeyRoutedEventArgs const&);
 
         void DisplayScanbuffer();
 
-        void WaitForScan();
+        void ReadyToScan(bool);
+
+        void Print(winrt::hstring);
+
+        void ScannerPageObject_GotFocus(winrt::Windows::Foundation::IInspectable const& sender, winrt::Microsoft::UI::Xaml::RoutedEventArgs const& e);
+        void ScannerPageObject_LostFocus(winrt::Windows::Foundation::IInspectable const& sender, winrt::Microsoft::UI::Xaml::RoutedEventArgs const& e);
+
+        void BarcodeEntry_GotFocus(winrt::Windows::Foundation::IInspectable const& sender, winrt::Microsoft::UI::Xaml::RoutedEventArgs const& e);
+        void BarcodeEntry_LostFocus(winrt::Windows::Foundation::IInspectable const& sender, winrt::Microsoft::UI::Xaml::RoutedEventArgs const& e);
     };
 }
 

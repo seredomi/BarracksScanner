@@ -1,22 +1,35 @@
 ﻿<Page
     x:Class="BarracksScanner.ScannerPage"
+    x:Name="ScannerPageObject"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:local="using:BarracksScanner"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d"
-    KeyUp="ScanHandler" 
     IsTabStop="True"
+    KeyUp="ScanHandler" 
+    GotFocus="ScannerPageObject_GotFocus"
+    LostFocus="ScannerPageObject_LostFocus"
+    NavigationCacheMode="Enabled"
     >
 
-
-
-    <ScrollPresenter>
+    <ScrollPresenter >
         
         <StackPanel x:Name="CardStack" Orientation="Vertical" Margin="40,16,0,0"
         >
-            <TextBlock x:Name="ScannerHeader" FontSize="40" FontWeight="SemiBold" >Scanner</TextBlock>
+            <TextBlock x:Name="ScannerHeader" FontSize="40" Margin="0,0,0,20" FontWeight="SemiBold" >Scanner</TextBlock>
+            <StackPanel x:Name="BarcodeStack" Orientation="Horizontal" >
+                <TextBlock x:Name="BarcodeLabel" TabIndex="0" Margin="0,0,10,0" FontSize="20">Barcode: </TextBlock>
+                <TextBox x:Name="BarcodeEntry"
+                         AllowDrop="False"
+                         MinWidth="190" MaxWidth="190"
+                         CharacterCasing="Upper" TextChanging="TextHandler" 
+                         GotFocus="BarcodeEntry_GotFocus"
+                         LostFocus="BarcodeEntry_LostFocus"
+                         IsReadOnly="True"
+                         />
+
+            </StackPanel>
             <Button x:Name="Button" Click="ClickHandler" IsTabStop="False">Click Me</Button>
         </StackPanel>
 
