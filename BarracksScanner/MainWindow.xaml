@@ -9,7 +9,6 @@
     mc:Ignorable="d"
     VisibilityChanged="Window_VisibilityChanged"
     >
-    
 
     <NavigationView x:Name="NavView"
                     Loaded="NavView_Loaded"

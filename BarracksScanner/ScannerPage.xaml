@@ -15,8 +15,7 @@
 
     <ScrollPresenter >
         
-        <StackPanel x:Name="CardStack" Orientation="Vertical" Margin="40,16,0,0"
-        >
+        <StackPanel x:Name="CardStack" Orientation="Vertical" Margin="40,16,0,0" >
             <TextBlock x:Name="ScannerHeader" FontSize="40" Margin="0,0,0,10" FontWeight="SemiBold" >Scanner</TextBlock>
             <TextBlock x:Name="ScannerStatus" Margin="0,0,0,10" FontStyle="Italic" IsTabStop="True" TabIndex="0" Text="Click Scanner before scanning"/>
         </StackPanel>

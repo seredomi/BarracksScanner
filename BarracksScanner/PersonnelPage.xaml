@@ -7,7 +7,11 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d">
 
-    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
-        <Button x:Name="Button" Click="ClickHandler">Personnel Unclicked </Button>
-    </StackPanel>
+    <ScrollPresenter >
+        <StackPanel x:Name="CardStack" Orientation="Vertical" Margin="40,16,0,0" >
+            <TextBlock x:Name="PersonnelHeader" FontSize="40" Margin="0,0,0,10" FontWeight="SemiBold" >Personnel</TextBlock>
+            <Button x:Name="Button" Click="ClickHandler">Personnel Unclicked</Button>
+        </StackPanel>
+    </ScrollPresenter>
+
 </Page>

@@ -7,7 +7,11 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d">
 
-    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
-        <Button x:Name="Button" Click="ClickHandler">Unclicked Logs Button</Button>
-    </StackPanel>
+        <!-- not sure why, but adding Name or x:Name attributes to anything is crashing this page -->
+
+        <StackPanel Orientation="Vertical" Margin="40,16,0,0" >
+            <TextBlock FontSize="40" Margin="0,0,0,10" FontWeight="SemiBold" >Logs</TextBlock>
+            <Button x:Name="Button" Click="ClickHandler">Unclicked Logs Button</Button>
+        </StackPanel>
+
 </Page>
