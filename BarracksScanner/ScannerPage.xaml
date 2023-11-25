@@ -7,7 +7,7 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d"
     IsTabStop="True"
-    KeyUp="ScanHandler" 
+    KeyUp="InputHandler" 
     GotFocus="ScannerPageObject_GotFocus"
     LostFocus="ScannerPageObject_LostFocus"
     NavigationCacheMode="Enabled"
@@ -17,18 +17,16 @@
         
         <StackPanel x:Name="CardStack" Orientation="Vertical" Margin="40,16,0,0"
         >
-            <TextBlock x:Name="ScannerHeader" FontSize="40" Margin="0,0,0,20" FontWeight="SemiBold" >Scanner</TextBlock>
+            <TextBlock x:Name="ScannerHeader" FontSize="40" Margin="0,0,0,10" FontWeight="SemiBold" >Scanner</TextBlock>
+            <TextBlock x:Name="ScannerStatus" Margin="0,0,0,10" FontStyle="Italic"/>
             <StackPanel x:Name="BarcodeStack" Orientation="Horizontal" >
                 <TextBlock x:Name="BarcodeLabel" TabIndex="0" Margin="0,0,10,0" FontSize="20">Barcode: </TextBlock>
                 <TextBox x:Name="BarcodeEntry"
                          AllowDrop="False"
                          MinWidth="190" MaxWidth="190"
                          CharacterCasing="Upper" TextChanging="TextHandler" 
-                         GotFocus="BarcodeEntry_GotFocus"
-                         LostFocus="BarcodeEntry_LostFocus"
                          IsReadOnly="True"
                          />
-
             </StackPanel>
             <Button x:Name="Button" Click="ClickHandler" IsTabStop="False">Click Me</Button>
         </StackPanel>

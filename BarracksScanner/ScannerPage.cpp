@@ -15,19 +15,7 @@ namespace winrt::BarracksScanner::implementation
         ResetScanBuffer();
         readyToScan = true;
         scanning = false;
-        lastChar = 0;
 	}
-
-
-    int32_t ScannerPage::MyProperty()
-    {
-        throw hresult_not_implemented();
-    }
-
-    void ScannerPage::MyProperty(int32_t /* value */)
-    {
-        throw hresult_not_implemented();
-    }
 
     hstring ScannerPage::ScanBuffer() const& {
         return scanBuffer;
@@ -63,58 +51,58 @@ namespace winrt::BarracksScanner::implementation
 	void ScannerPage::TextHandler(Controls::TextBox const& sender, Controls::TextBoxTextChangingEventArgs const& args) {
     }
 
-	void ScannerPage::ScanHandler(Windows::Foundation::IInspectable const&, Microsoft::UI::Xaml::Input::KeyRoutedEventArgs const& args) {
+	void ScannerPage::InputHandler(Windows::Foundation::IInspectable const&, Microsoft::UI::Xaml::Input::KeyRoutedEventArgs const& args) {
 
-        float timeDelta;
+        // this is my solution for handling all keyboard input
+        // it attempts to isolate barcode scans based on time between "keystrokes"
+        // it fails if a user is mashing the keyboard while scanning, but successfully disregards other keybaord input before/after a scan
 
         UINT scanCode = MapVirtualKey((UINT) args.Key(), MAPVK_VK_TO_CHAR);
 
+        // record keystroke times
+        charTimes.push_back(std::clock());
 
-        if (!scanning) {
-            scanning = true;
-            timeDelta = 0;
-            lastChar = std::clock();
-        }
-        else {
-			timeDelta = (float) (std::clock() - lastChar) / CLOCKS_PER_SEC;
-            lastChar = std::clock();
-        }
-        Print(to_hstring(timeDelta));
+		// if [enter], strip buffer of non-scanner input
+        if (scanCode == 13) {
+            // scannerInputStartIndex tracks where scanner input starts based on key entry time
+            unsigned int scannerInputStartIndex = 0;
+            for (int i = 1; i < charTimes.size(); ++i) {
+                float td = (float)(charTimes[i] - charTimes[i - 1]) / CLOCKS_PER_SEC;
+                if (td > 0.035) {
+                    scannerInputStartIndex = i;
+                }
+            }
+            // if scanBuffer has scanner input
+			if (scannerInputStartIndex < charTimes.size() - 1) {
+                // if the scanner also has some kb input, remove those characters
+                if (scannerInputStartIndex != 0) {
+                    hstring newScanBuffer;
+                    for (scannerInputStartIndex; scannerInputStartIndex < scanBuffer.size(); ++scannerInputStartIndex) {
+                        newScanBuffer = newScanBuffer + scanBuffer[scannerInputStartIndex];
+                    }
+                    scanBuffer = newScanBuffer;
+                }
 
-        // only take input if it seems like its fast enough to be from a scanner
-        if (timeDelta < 0.035) {
-			// if enter, display scanbuffer and reset it
-			if (scanCode == 13) {
-				DisplayScanbuffer();
-				ResetScanBuffer();
-				BarcodeEntry().Text(scanBuffer);
-				scanning = false;
-			}
-			// else if not shift, add it to scanBuffer
-			else if (scanCode != 0 && scanCode != 9) {
-				AddToScanBuffer(hstring{ static_cast<wchar_t>(scanCode) });
-			}
-        }
-        else {
-            ResetScanBuffer();
+                Print(scanBuffer);
+            }
+			ResetScanBuffer();
 			BarcodeEntry().Text(scanBuffer);
-            scanning = false;
+            charTimes.clear();
         }
-        
+
+		// else if not [shift] or [tab], add char to scanBuffer
+		else if (scanCode != 0 && scanCode != 9) {
+			AddToScanBuffer(hstring{ static_cast<wchar_t>(scanCode) });
+		}
     }
 	void ScannerPage::ScannerPageObject_GotFocus(IInspectable const& sender, RoutedEventArgs const& e) {
-        BarcodeEntry().Focus(FocusState::Programmatic);
+        this->Focus(FocusState::Programmatic);
+        ScannerStatus().Text(L"Ready to scan");
 	}
 
 	void ScannerPage::ScannerPageObject_LostFocus(IInspectable const& sender, RoutedEventArgs const& e) {
-        BarcodeEntry().Focus(FocusState::Programmatic);
-	}
-
-	void ScannerPage::BarcodeEntry_GotFocus(Windows::Foundation::IInspectable const& sender, RoutedEventArgs const& e) {
-        BarcodeEntry().PlaceholderText(L"Ready to scan");
-	}
-	void ScannerPage::BarcodeEntry_LostFocus(Windows::Foundation::IInspectable const& sender, RoutedEventArgs const& e) {
-        BarcodeEntry().PlaceholderText(L"Click here before scanning");
+        this->Focus(FocusState::Programmatic);
+        ScannerStatus().Text(L"Click on this window before scanning");
 	}
 }
 
