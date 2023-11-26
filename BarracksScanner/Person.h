@@ -12,7 +12,6 @@ private:
 	winrt::hstring group;
 
 public:
-
 	Person() = default;
 	Person(winrt::hstring, winrt::hstring, winrt::hstring, winrt::hstring, winrt::hstring, winrt::hstring);
 
