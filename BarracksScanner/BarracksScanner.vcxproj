@@ -130,7 +130,7 @@
       <DependentUpon>PersonnelPage.xaml</DependentUpon>
       <SubType>Code</SubType>
     </ClInclude>
-    <ClInclude Include="PersonQuery.h" />
+    <ClInclude Include="DatabaseConnection.h" />
     <ClInclude Include="ScannerPage.h">
       <DependentUpon>ScannerPage.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -170,7 +170,7 @@
       <DependentUpon>PersonnelPage.xaml</DependentUpon>
       <SubType>Code</SubType>
     </ClCompile>
-    <ClCompile Include="PersonQuery.cpp" />
+    <ClCompile Include="DatabaseConnection.cpp" />
     <ClCompile Include="ScannerPage.cpp">
       <DependentUpon>ScannerPage.xaml</DependentUpon>
       <SubType>Code</SubType>
