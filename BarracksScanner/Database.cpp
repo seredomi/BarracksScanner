@@ -4,12 +4,12 @@
 
 using namespace std;
 
-Database::Database(string dbPath, string aQuery) :
+Database::Database(string aQuery, string dbPath) :
 	db(nullptr), errorMsg(nullptr), query(aQuery) {
 
 	int rc = sqlite3_open(dbPath.c_str(), &db);
 	if (rc) {
-		cerr << "can't open database: " << sqlite3_errmsg(db) << '\n';
+		result[0][0] = "can't open database: " + string(sqlite3_errmsg(db));
 		sqlite3_close(db);
 		db = nullptr;
 	}
@@ -24,7 +24,7 @@ Database::~Database() {
 void Database::executeQuery() {
 
 	if (!db) {
-		cerr << "database not opened\n";
+		result[0][0] = "database not opened";
 		return;
 	}
 
@@ -32,7 +32,7 @@ void Database::executeQuery() {
 	int rc = sqlite3_exec(db, query.c_str(), callback, &result, &errorMsg);
 
 	if (rc != SQLITE_OK) {
-		cerr << "sql error: " << errorMsg << '\n';
+		result[0][0] = "sql error : " + string(errorMsg);
 		sqlite3_free(errorMsg);
 	}
 }
