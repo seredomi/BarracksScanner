@@ -16,12 +16,12 @@
     <ClCompile Include="pch.cpp" />
     <ClCompile Include="$(GeneratedFilesDir)module.g.cpp" />
     <ClCompile Include="Person.cpp" />
-    <ClCompile Include="DatabaseConnection.cpp" />
+    <ClCompile Include="Database.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h" />
     <ClInclude Include="Person.h" />
-    <ClInclude Include="DatabaseConnection.h" />
+    <ClInclude Include="Database.h" />
     <ClInclude Include="sqlite3.h" />
   </ItemGroup>
   <ItemGroup>
