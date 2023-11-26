@@ -39,21 +39,17 @@ namespace winrt::BarracksScanner::implementation
 		ContentFrame().Focus(FocusState::Programmatic);
     }
 	
-	void MainWindow::scanner_GotFocus(Windows::Foundation::IInspectable sender, RoutedEventArgs const& args) {
+	void MainWindow::scanner_GotFocus(Windows::Foundation::IInspectable sender, RoutedEventArgs const&) {
 		ContentFrame().Focus(FocusState::Programmatic);
 	}
-	void MainWindow::personnel_GotFocus(Windows::Foundation::IInspectable sender, RoutedEventArgs const& args) {
+	void MainWindow::personnel_GotFocus(Windows::Foundation::IInspectable sender, RoutedEventArgs const&) {
 		ContentFrame().Focus(FocusState::Programmatic);
 	}
-	void MainWindow::logs_GotFocus(Windows::Foundation::IInspectable sender, RoutedEventArgs const& args) {
+	void MainWindow::logs_GotFocus(Windows::Foundation::IInspectable sender, RoutedEventArgs const&) {
 		ContentFrame().Focus(FocusState::Programmatic);
 	}
 
-	void MainWindow::Window_VisibilityChanged(IInspectable const& sender, WindowVisibilityChangedEventArgs const& args) {
-		if (!args.Visible()) {
-			
-		}
-
+	void MainWindow::Window_VisibilityChanged(IInspectable const&, WindowVisibilityChangedEventArgs const&) {
 	}
 
 }

@@ -3,9 +3,13 @@
 #if __has_include("ScannerPage.g.cpp")
 #include "ScannerPage.g.cpp"
 #endif
+#include "Database.h"
+#include <string>
+#include <vector>
 
 using namespace winrt;
 using namespace Microsoft::UI::Xaml;
+using namespace std;
 
 namespace winrt::BarracksScanner::implementation
 {
@@ -25,6 +29,33 @@ namespace winrt::BarracksScanner::implementation
         scanBuffer = scanBuffer + str;
     }
 
+    void ScannerPage::SearchPersonnel() {
+
+        string query = "SELECT rank,lastName,firstName,groupName FROM personnel WHERE id LIKE '%" + to_string(scanBuffer) + "%'";
+        Database db = Database(query);
+        db.executeQuery();
+        vector<vector<string>> result = db.result;
+
+        hstring textResult = L"";
+
+        if (result.size() < 1) {
+            textResult = scanBuffer + L" was not found in the database\n";
+        }
+        else {
+            textResult = L"Name: " + to_hstring(result[0][0] + " " + result[0][1] + "\nGroup: " + result[0][3] + "\n");
+        }
+
+        Controls::TextBlock tb;
+        tb.Text(textResult);
+        CardStack().Children().Append(tb);
+    }
+
+    void ScannerPage::ResultNotFound() {
+    }
+
+    void ScannerPage::ResultFound(vector<vector<string>> result) {
+    }
+
     void ScannerPage::Print(hstring text) {
         Controls::TextBlock newTB;
         newTB.Text(text);
@@ -40,7 +71,7 @@ namespace winrt::BarracksScanner::implementation
         UINT scanCode = MapVirtualKey((UINT) args.Key(), MAPVK_VK_TO_CHAR);
 
         // record keystroke times
-        charTimes.push_back(std::clock());
+        charTimes.emplace_back(std::clock());
 
 		// if [enter], strip buffer of non-scanner input
         if (scanCode == 13) {
@@ -63,7 +94,7 @@ namespace winrt::BarracksScanner::implementation
                     scanBuffer = newScanBuffer;
                 }
 
-                Print(scanBuffer);
+                SearchPersonnel();
             }
 			ResetScanBuffer();
             charTimes.clear();
@@ -74,12 +105,12 @@ namespace winrt::BarracksScanner::implementation
 			AddToScanBuffer(hstring{ static_cast<wchar_t>(scanCode) });
 		}
     }
-	void ScannerPage::ScannerPageObject_GotFocus(IInspectable const& sender, RoutedEventArgs const& e) {
+	void ScannerPage::ScannerPageObject_GotFocus(IInspectable const&, RoutedEventArgs const&) {
         this->Focus(FocusState::Programmatic);
         ScannerStatus().Text(L"Ready to scan");
 	}
 
-	void ScannerPage::ScannerPageObject_LostFocus(IInspectable const& sender, RoutedEventArgs const& e) {
+	void ScannerPage::ScannerPageObject_LostFocus(IInspectable const&, RoutedEventArgs const&) {
         this->Focus(FocusState::Programmatic);
         ScannerStatus().Text(L"Click on this window before scanning");
 	}

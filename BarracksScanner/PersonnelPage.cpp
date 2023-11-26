@@ -27,7 +27,7 @@ namespace winrt::BarracksScanner::implementation
     {
         Button().Content(box_value(L"Personnel Clicked"));
 
-        string query = "SELECT * FROM personnel INNER JOIN logs ON personnel.id = logs.id WHERE personnel.firstName LIKE '%sereno%'";
+        string query = "SELECT rank,lastName,firstName,groupName FROM personnel ORDER BY lastName LIMIT 15";
         Database db = Database(query);
         db.executeQuery();
         vector<vector<string>> result = db.result;

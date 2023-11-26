@@ -1,6 +1,8 @@
 ﻿#pragma once
 
 #include "ScannerPage.g.h"
+#include <vector>
+#include <string>
 
 namespace winrt::BarracksScanner::implementation
 {
@@ -16,6 +18,9 @@ namespace winrt::BarracksScanner::implementation
         void AddToScanBuffer(const hstring);
 
         void InputHandler(Windows::Foundation::IInspectable const&, Microsoft::UI::Xaml::Input::KeyRoutedEventArgs const&);
+        void SearchPersonnel();
+        void ResultNotFound();
+        void ResultFound(std::vector<std::vector<std::string>>);
 
         void Print(winrt::hstring);
 
