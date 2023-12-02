@@ -40,14 +40,16 @@ namespace winrt::BarracksScanner::implementation
 
         if (result.size() < 1) {
             textResult = scanBuffer + L" was not found in the database\n";
+            ScanResultPopup().Title(L"Not approved");
+            ScanResultPopup().Subtitle(L"The scanned ID " + scanBuffer + L" was not found in the database\n"
+                + L"Please try scanning the back of their ID again or consider adding this person to the database");
         }
         else {
-            textResult = L"Name: " + to_hstring(result[0][0] + " " + result[0][1] + "\nGroup: " + result[0][3] + "\n");
+            ScanResultPopup().Title(L"Approved");
+            ScanResultPopup().Subtitle(L"Name: " + to_hstring(result[0][0] + " " + result[0][1] + "\nGroup: " + result[0][3] + "\n"));
         }
 
-        Controls::TextBlock tb;
-        tb.Text(textResult);
-        CardStack().Children().Append(tb);
+        ScanResultPopup().IsOpen(true);
     }
 
     void ScannerPage::ResultNotFound() {
@@ -93,7 +95,6 @@ namespace winrt::BarracksScanner::implementation
                     }
                     scanBuffer = newScanBuffer;
                 }
-
                 SearchPersonnel();
             }
 			ResetScanBuffer();
@@ -107,17 +108,20 @@ namespace winrt::BarracksScanner::implementation
     }
 	void ScannerPage::ScannerPageObject_GotFocus(IInspectable const&, RoutedEventArgs const&) {
         this->Focus(FocusState::Programmatic);
-        ScannerStatus().Text(L"Ready to scan");
+        ScannerStatus().Content(box_value(L"Scan back of ID when ready"));
+        ScannerStatus().IsEnabled(false);
 	}
 
 	void ScannerPage::ScannerPageObject_LostFocus(IInspectable const&, RoutedEventArgs const&) {
+        ScannerStatus().Content(box_value(L"Click here before scanning"));
+        ScannerStatus().IsEnabled(true);
+	}
+	void ScannerPage::TestButton_Click(IInspectable const& sender, RoutedEventArgs const& e) {
+
+	}
+	void ScannerPage::ScannerStatus_Click(IInspectable const&, RoutedEventArgs const&) {
         this->Focus(FocusState::Programmatic);
-        ScannerStatus().Text(L"Click on this window before scanning");
 	}
 }
-
-
-
-
 
 
