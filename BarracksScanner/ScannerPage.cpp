@@ -116,9 +116,6 @@ namespace winrt::BarracksScanner::implementation
         ScannerStatus().Content(box_value(L"Click here before scanning"));
         ScannerStatus().IsEnabled(true);
 	}
-	void ScannerPage::TestButton_Click(IInspectable const& sender, RoutedEventArgs const& e) {
-
-	}
 	void ScannerPage::ScannerStatus_Click(IInspectable const&, RoutedEventArgs const&) {
         this->Focus(FocusState::Programmatic);
 	}

@@ -48,10 +48,6 @@ namespace winrt::BarracksScanner::implementation
 	void MainWindow::logs_GotFocus(Windows::Foundation::IInspectable sender, RoutedEventArgs const&) {
 		ContentFrame().Focus(FocusState::Programmatic);
 	}
-
-	void MainWindow::Window_VisibilityChanged(IInspectable const&, WindowVisibilityChangedEventArgs const&) {
-	}
-
 }
 
 
