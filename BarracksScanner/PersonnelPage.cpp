@@ -1,6 +1,7 @@
 ﻿#include "pch.h"
 #include "PersonnelPage.h"
 #include "Database.h"
+#include "Person.h"
 #if __has_include("PersonnelPage.g.cpp")
 #include "PersonnelPage.g.cpp"
 #endif
@@ -25,9 +26,6 @@ namespace winrt::BarracksScanner::implementation
 
     void PersonnelPage::ClickHandler(IInspectable const&, RoutedEventArgs const&)
     {
-        Button().Content(box_value(L"Personnel Clicked"));
-
-        string query = "SELECT rank,lastName,firstName,groupName FROM personnel ORDER BY lastName LIMIT 15";
         Database db = Database(query);
         db.executeQuery();
         vector<vector<string>> result = db.result;
@@ -45,4 +43,80 @@ namespace winrt::BarracksScanner::implementation
         CardStack().Children().Append(tb);
 
     }
+	void PersonnelPage::FilterTextChanged(IInspectable const&, Controls::TextChangedEventArgs const&) {
+
+	}
+    
+	void PersonnelPage::PageLoaded(IInspectable const&, RoutedEventArgs const&) {
+        query = "SELECT id,rank,lastName,firstName,room,groupName FROM personnel ORDER BY lastName";
+        RefreshPersonnel();
+	}
+
+    void PersonnelPage::RefreshPersonnel() {
+
+        Database db = Database(query);
+        db.executeQuery();
+        vector<vector<string>> result = db.result;
+
+        ClearColumns();
+
+        for (vector<string> row : result) {
+            Person newPerson = Person(row);
+            Controls::TextBlock rank;
+            rank.Text(newPerson.rank);
+            rank.Margin(Thickness{ 0,0,8,8 });
+            RankColumn().Children().Append(rank);
+            Controls::TextBlock last;
+            last.Margin(Thickness{ 0,0,8,8 });
+            last.Text(newPerson.last);
+            LastColumn().Children().Append(last);
+            Controls::TextBlock first;
+            first.Text(newPerson.first);
+            first.Margin(Thickness{ 0,0,8,8 });
+            FirstColumn().Children().Append(first);
+            Controls::TextBlock group;
+            group.Text(newPerson.group);
+            group.Margin(Thickness{ 0,0,8,8 });
+            GroupColumn().Children().Append(group);
+        }
+    }
+
+    void PersonnelPage::ClearColumns() {
+
+        RankColumn().Children().Clear();
+        Controls::TextBlock rankHeader;
+        rankHeader.Margin(Thickness{ 0,8,8,8 });
+        rankHeader.FontSize(20);
+        rankHeader.FontWeight(Windows::UI::Text::FontWeight{ 600 });
+        rankHeader.Text(L"Rank");
+        RankColumn().Children().Append(rankHeader);
+
+        FirstColumn().Children().Clear();
+        Controls::TextBlock firstHeader;
+        firstHeader.Margin(Thickness{ 0,8,8,8 });
+        firstHeader.FontSize(20);
+        firstHeader.FontWeight(Windows::UI::Text::FontWeight{ 600 });
+        firstHeader.Text(L"First");
+        FirstColumn().Children().Append(firstHeader);
+
+        LastColumn().Children().Clear();
+        Controls::TextBlock lastHeader;
+        lastHeader.Margin(Thickness{ 0,8,8,8 });
+        lastHeader.FontSize(20);
+        lastHeader.FontWeight(Windows::UI::Text::FontWeight{ 600 });
+        lastHeader.Text(L"Last");
+        LastColumn().Children().Append(lastHeader);
+
+        GroupColumn().Children().Clear();
+        Controls::TextBlock groupHeader;
+        groupHeader.Margin(Thickness{ 0,8,8,8 });
+        groupHeader.FontSize(20);
+        groupHeader.FontWeight(Windows::UI::Text::FontWeight{ 600 });
+        groupHeader.Text(L"Group");
+        GroupColumn().Children().Append(groupHeader);
+    }
 }
+
+
+
+
