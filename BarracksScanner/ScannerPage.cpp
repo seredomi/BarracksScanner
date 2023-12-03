@@ -39,14 +39,20 @@ namespace winrt::BarracksScanner::implementation
         hstring textResult = L"";
 
         if (result.size() < 1) {
-            textResult = scanBuffer + L" was not found in the database\n";
+
+            Controls::SymbolIconSource cancelIcon;
+            cancelIcon.Symbol(Controls::Symbol::Cancel);
+            ScanResultPopup().IconSource(cancelIcon);
             ScanResultPopup().Title(L"Not approved");
-            ScanResultPopup().Subtitle(L"The scanned ID " + scanBuffer + L" was not found in the database\n"
-                + L"Please try scanning the back of their ID again or consider adding this person to the database");
+            ScanResultPopup().Subtitle(L"\nThe scanned ID " + scanBuffer + L" was not found\n"
+                + L"Try scanning the back of their ID again or consider adding this person to the database");
         }
         else {
+            Controls::SymbolIconSource cancelIcon;
+            cancelIcon.Symbol(Controls::Symbol::Accept);
+            ScanResultPopup().IconSource(cancelIcon);
             ScanResultPopup().Title(L"Approved");
-            ScanResultPopup().Subtitle(L"Name: " + to_hstring(result[0][0] + " " + result[0][1] + "\nGroup: " + result[0][3] + "\n"));
+            ScanResultPopup().Subtitle(L"\nName: " + to_hstring(result[0][0] + " " + result[0][1] + "\nGroup: " + result[0][3] + "\n"));
         }
 
         ScanResultPopup().IsOpen(true);
