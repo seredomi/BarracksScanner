@@ -63,17 +63,28 @@ namespace winrt::BarracksScanner::implementation
         for (vector<string> row : result) {
             Person newPerson = Person(row);
             Controls::TextBlock rank;
-            rank.Text(newPerson.rank);
+			rank.Text(newPerson.rank);
+            if (rank.Text().empty())
+                rank.Text(L" ");
             rank.Margin(Thickness{ 0,0,8,8 });
             RankColumn().Children().Append(rank);
+
             Controls::TextBlock last;
             last.Margin(Thickness{ 0,0,8,8 });
             last.Text(newPerson.last);
+            if (newPerson.last == L"") {
+                last.Text(L" ");
+            }
             LastColumn().Children().Append(last);
+            
             Controls::TextBlock first;
             first.Text(newPerson.first);
+            if (newPerson.first == L"") {
+                first.Text(L" ");
+            }
             first.Margin(Thickness{ 0,0,8,8 });
             FirstColumn().Children().Append(first);
+
             Controls::TextBlock group;
             group.Text(newPerson.group);
             group.Margin(Thickness{ 0,0,8,8 });
