@@ -26,6 +26,7 @@
                                     <CheckBox x:Name="ResidentCheck" Content="Resident" Margin="24,0,0,0" IsChecked="True" Checked="FilterCheckChanged" Unchecked="FilterCheckChanged" />
                                     <CheckBox x:Name="RotationalUnitCheck" Content="Rotational Unit" Margin="24,0,0,0" IsChecked="True" Checked="FilterCheckChanged" Unchecked="FilterCheckChanged" />
                                     <CheckBox x:Name="HotelDivartyCheck" Content="Hotel Divarty" Margin="24,0,0,0" IsChecked="True" Checked="FilterCheckChanged" Unchecked="FilterCheckChanged"/>
+                                    <CheckBox x:Name="ChainOfCommandCheck" Content="Chain of Command" Margin="24,0,0,0" IsChecked="True" Checked="FilterCheckChanged" Unchecked="FilterCheckChanged"/>
                                 </StackPanel>
                             </Flyout>
                         </DropDownButton.Flyout>

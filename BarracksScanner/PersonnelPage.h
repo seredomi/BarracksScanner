@@ -1,17 +1,20 @@
 ﻿#pragma once
 
 #include "PersonnelPage.g.h"
+#include <set>
 
 namespace winrt::BarracksScanner::implementation
 {
     struct PersonnelPage : PersonnelPageT<PersonnelPage>
     {
         std::string query;
+        std::string idMatch;
+        std::string firstMatch;
+        std::string lastMatch;
+        std::string roomMatch;
+        std::set<std::string> groupMatches;
 
-        PersonnelPage() 
-        {
-            // Xaml objects should not call InitializeComponent during construction.
-            // See https://github.com/microsoft/cppwinrt/tree/master/nuget#initializecomponent
+        PersonnelPage() {
         }
 
         int32_t MyProperty();
@@ -23,6 +26,7 @@ namespace winrt::BarracksScanner::implementation
         void RefreshPersonnel();
         void ClearColumns();
         void FilterCheckChanged(winrt::Windows::Foundation::IInspectable const& sender, winrt::Microsoft::UI::Xaml::RoutedEventArgs const& e);
+        void BuildQuery();
     };
 }
 

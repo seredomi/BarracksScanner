@@ -31,12 +31,13 @@ namespace winrt::BarracksScanner::implementation
         vector<vector<string>> result = db.result;
 
         hstring hresult = L"";
-        for (vector<string> row : result) {
-            for (string item : row) {
-                hresult = hresult + to_hstring(item) + L", ";
-            }
-            hresult = hresult + L"\n";
-        }
+		for (vector<string> row : result) {
+			for (string item : row) {
+				hresult = hresult + to_hstring(item) + L", ";
+			}
+			hresult = hresult + L"\n";
+		}
+
 
         Controls::TextBlock tb;
         tb.Text(hresult);
@@ -44,19 +45,26 @@ namespace winrt::BarracksScanner::implementation
 
     }
 	void PersonnelPage::FilterTextChanged(IInspectable const&, Controls::TextChangedEventArgs const&) {
-
+        lastMatch = to_string(LastNameFilter().Text());
+        firstMatch = to_string(FirstNameFilter().Text());
+        RefreshPersonnel();
 	}
     
 	void PersonnelPage::FilterCheckChanged(winrt::Windows::Foundation::IInspectable const& sender, RoutedEventArgs const& e) {
 
 	}
 	void PersonnelPage::PageLoaded(IInspectable const&, RoutedEventArgs const&) {
-        query = "SELECT id,rank,lastName,firstName,room,groupName FROM personnel ORDER BY lastName";
+        idMatch = "";
+        firstMatch = "";
+        lastMatch = "";
+        groupMatches = set<string>{ "Resident", "Rotational Unit", "Hotel Divarty", "COC" };
+        roomMatch = "";
         RefreshPersonnel();
 	}
 
     void PersonnelPage::RefreshPersonnel() {
 
+        BuildQuery();
         Database db = Database(query);
         db.executeQuery();
         vector<vector<string>> result = db.result;
@@ -64,7 +72,10 @@ namespace winrt::BarracksScanner::implementation
         ClearColumns();
 
         for (vector<string> row : result) {
-            Person newPerson = Person(row);
+            Person newPerson;
+            if (row.size() == 6) {
+				newPerson = Person(row);
+            }
             Controls::TextBlock rank;
 			rank.Text(newPerson.rank);
             if (rank.Text().empty())
@@ -128,6 +139,23 @@ namespace winrt::BarracksScanner::implementation
         groupHeader.FontWeight(Windows::UI::Text::FontWeight{ 600 });
         groupHeader.Text(L"Group");
         GroupColumn().Children().Append(groupHeader);
+    }
+
+    void PersonnelPage::BuildQuery() {
+
+        string res = "SELECT id,rank,lastName,firstName,room,groupName FROM personnel";
+        res += " WHERE id LIKE '%" + idMatch + "%'";
+        res += " AND firstName LIKE '%" + firstMatch + "%' and lastName LIKE '%" + lastMatch + "%'";
+        res += " AND room LIKE '%" + roomMatch + "%'";
+        res += " AND groupName IN (";
+        for (string group : groupMatches) {
+            res += "'" + group + "',";
+        }
+		res = res.substr(0, res.size() - 1);
+        res += ")";
+        res += ";";
+
+        query = res;
     }
 }
 
