@@ -47,6 +47,9 @@ namespace winrt::BarracksScanner::implementation
 
 	}
     
+	void PersonnelPage::FilterCheckChanged(winrt::Windows::Foundation::IInspectable const& sender, RoutedEventArgs const& e) {
+
+	}
 	void PersonnelPage::PageLoaded(IInspectable const&, RoutedEventArgs const&) {
         query = "SELECT id,rank,lastName,firstName,room,groupName FROM personnel ORDER BY lastName";
         RefreshPersonnel();
@@ -127,6 +130,8 @@ namespace winrt::BarracksScanner::implementation
         GroupColumn().Children().Append(groupHeader);
     }
 }
+
+
 
 
 
