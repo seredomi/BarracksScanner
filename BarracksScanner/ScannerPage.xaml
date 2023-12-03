@@ -17,7 +17,7 @@
         <ScrollPresenter >
             <StackPanel x:Name="CardStack" Orientation="Vertical" Margin="40,16,0,0" >
                 <TextBlock x:Name="ScannerHeader" FontSize="40" Margin="0,0,0,10" FontWeight="SemiBold" >Scanner</TextBlock>
-                <HyperlinkButton x:Name="ScannerStatus"  Click="ScannerStatus_Click"  FontStyle="Italic" IsTabStop="True" TabIndex="0" Content="Scan back of ID when ready"/>
+                <HyperlinkButton x:Name="ScannerStatus"  Click="ScannerStatus_Click"  FontSize="20" FontStyle="Italic" IsTabStop="True" TabIndex="0" Content="Scan back of ID when ready"/>
                 <TeachingTip
                     x:Name="ScanResultPopup"
                     Title="Query not initiated"

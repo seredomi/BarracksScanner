@@ -115,11 +115,13 @@ namespace winrt::BarracksScanner::implementation
 	void ScannerPage::ScannerPageObject_GotFocus(IInspectable const&, RoutedEventArgs const&) {
         this->Focus(FocusState::Programmatic);
         ScannerStatus().Content(box_value(L"Scan back of ID when ready"));
+        ScannerStatus().FontWeight(Windows::UI::Text::FontWeight{ 400 });
         ScannerStatus().IsEnabled(false);
 	}
 
 	void ScannerPage::ScannerPageObject_LostFocus(IInspectable const&, RoutedEventArgs const&) {
         ScannerStatus().Content(box_value(L"Click here before scanning"));
+        ScannerStatus().FontWeight(Windows::UI::Text::FontWeight{ 600 });
         ScannerStatus().IsEnabled(true);
 	}
 	void ScannerPage::ScannerStatus_Click(IInspectable const&, RoutedEventArgs const&) {
