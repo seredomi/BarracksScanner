@@ -52,14 +52,41 @@ namespace winrt::BarracksScanner::implementation
     
 	void PersonnelPage::FilterCheckChanged(winrt::Windows::Foundation::IInspectable const& sender, RoutedEventArgs const& e) {
 
+        set<Controls::CheckBox> groupCheckBoxes = { ResidentCheck(), RotationalUnitCheck(), HotelDivartyCheck(), ChainOfCommandCheck() };
+
+        if (sender == SelectAllGroups())
+            for (Controls::CheckBox cb : groupCheckBoxes)
+                cb.IsChecked(true);
+        if (sender == RemoveAllGroups())
+            for (Controls::CheckBox cb : groupCheckBoxes)
+                cb.IsChecked(false);
+
+        groupMatches.clear();
+		if (ResidentCheck().IsChecked())
+			groupMatches.insert("Resident");
+		else
+			groupMatches.erase("Resident");
+		if (RotationalUnitCheck().IsChecked())
+			groupMatches.insert("Rotational Unit");
+		else
+			groupMatches.erase("Rotational Unit");
+		if (HotelDivartyCheck().IsChecked())
+			groupMatches.insert("Hotel Divarty");
+		else
+			groupMatches.erase("Hotel Divarty");
+		if (ChainOfCommandCheck().IsChecked())
+			groupMatches.insert("COC");
+		else
+			groupMatches.erase("COC");
+        RefreshPersonnel();
 	}
+
 	void PersonnelPage::PageLoaded(IInspectable const&, RoutedEventArgs const&) {
         idMatch = "";
         firstMatch = "";
         lastMatch = "";
         groupMatches = set<string>{ "Resident", "Rotational Unit", "Hotel Divarty", "COC" };
         roomMatch = "";
-        RefreshPersonnel();
 	}
 
     void PersonnelPage::RefreshPersonnel() {
@@ -151,13 +178,59 @@ namespace winrt::BarracksScanner::implementation
         for (string group : groupMatches) {
             res += "'" + group + "',";
         }
-		res = res.substr(0, res.size() - 1);
-        res += ")";
+		res = res.substr(0, res.size() - 1) + ")"; // strip final ',' before adding ')'
         res += ";";
 
         query = res;
     }
+
+	void winrt::BarracksScanner::implementation::PersonnelPage::ResidentCheck_Checked(winrt::Windows::Foundation::IInspectable const& sender, winrt::Microsoft::UI::Xaml::RoutedEventArgs const& e) {
+        if (ResidentCheck().IsChecked()) {
+            groupMatches.insert("Resident");
+        }
+        else {
+            groupMatches.erase("Resident");
+        }
+        RefreshPersonnel();
+	}
+
+	void winrt::BarracksScanner::implementation::PersonnelPage::RotationalUnitCheck_Checked(winrt::Windows::Foundation::IInspectable const& sender, winrt::Microsoft::UI::Xaml::RoutedEventArgs const& e) {
+        if (RotationalUnitCheck().IsChecked()) {
+            groupMatches.insert("Rotational Unit");
+        }
+        else {
+            groupMatches.erase("Rotational Unit");
+        }
+        RefreshPersonnel();
+
+	}
+
+	void winrt::BarracksScanner::implementation::PersonnelPage::HotelDivartyCheck_Checked(winrt::Windows::Foundation::IInspectable const& sender, winrt::Microsoft::UI::Xaml::RoutedEventArgs const& e) {
+        if (HotelDivartyCheck().IsChecked()) {
+            groupMatches.insert("Hotel Divarty");
+        }
+        else {
+            groupMatches.erase("Hotel Divarty");
+        }
+		RefreshPersonnel();
+	}
+
+	void winrt::BarracksScanner::implementation::PersonnelPage::ChainOfCommandCheck_Checked(winrt::Windows::Foundation::IInspectable const& sender, winrt::Microsoft::UI::Xaml::RoutedEventArgs const& e) {
+
+        if (ChainOfCommandCheck().IsChecked()) {
+            groupMatches.insert("COC");
+        }
+        else {
+            groupMatches.erase("COC");
+        }
+        RefreshPersonnel();
+	}
 }
+
+
+
+
+
 
 
 
