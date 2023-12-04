@@ -28,10 +28,10 @@
                         <DropDownButton.Flyout>
                             <Flyout Placement="BottomEdgeAlignedLeft">
                                 <StackPanel>
-                                    <CheckBox x:Name="ResidentCheck" Content="Resident" Margin="0,0,0,0" Checked="FilterCheckChanged"  Unchecked="FilterCheckChanged" />
-                                    <CheckBox x:Name="RotationalUnitCheck" Content="Rotational Unit" Margin="0,0,0,0" Checked="FilterCheckChanged"  Unchecked="FilterCheckChanged" />
-                                    <CheckBox x:Name="HotelDivartyCheck" Content="Hotel Divarty" Margin="0,0,0,0" Checked="FilterCheckChanged"  Unchecked="FilterCheckChanged"/>
-                                    <CheckBox x:Name="ChainOfCommandCheck" Content="Chain of Command" Margin="0,0,0,0" Checked="FilterCheckChanged"  Unchecked="FilterCheckChanged"/>
+                                    <CheckBox x:Name="ResidentCheck" Content="Resident" Margin="0,0,0,0" Checked="ResidentCheck_Checked"  Unchecked="ResidentCheck_Unchecked"  />
+                                    <CheckBox x:Name="RotationalUnitCheck" Content="Rotational Unit" Margin="0,0,0,0" Checked="RotationalUnitCheck_Checked"  Unchecked="RotationalUnitCheck_Unchecked"  />
+                                    <CheckBox x:Name="HotelDivartyCheck" Content="Hotel Divarty" Margin="0,0,0,0" Checked="HotelDivartyCheck_Checked"  Unchecked="HotelDivartyCheck_Unchecked"  />
+                                    <CheckBox x:Name="ChainOfCommandCheck" Content="Chain of Command" Margin="0,0,0,0" Checked="ChainOfCommandCheck_Checked"  Unchecked="ChainOfCommandCheck_Unchecked"  />
                                     <StackPanel Orientation="Horizontal">
                                         <Button x:Name="SelectAllGroups" Margin="4" Content="Select all" Click="FilterCheckChanged" />
                                         <Button x:Name="RemoveAllGroups" Margin="4"  Content="Remove all" Click="FilterCheckChanged" />
