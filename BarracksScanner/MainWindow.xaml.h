@@ -11,7 +11,6 @@ namespace winrt::BarracksScanner::implementation
         {
 			AppWindow().SetIcon(L"transparent-square.ico");
             // not sure why this doesn't work
-            AppWindow().MoveAndResize(Windows::Graphics::RectInt32{ 100, 300, 700, 900 });
         }
 
 

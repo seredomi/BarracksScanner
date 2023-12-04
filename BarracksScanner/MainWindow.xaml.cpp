@@ -19,6 +19,7 @@ namespace winrt::BarracksScanner::implementation
 		// not sure why this doesnt work
 		NavView().SelectedItem() = NavView().MenuItems().GetAt(0);
 		ContentFrame().Focus(FocusState::Programmatic);
+		AppWindow().Resize(Windows::Graphics::SizeInt32{ 900 ,800 });
 	}
 
     void MainWindow::NavView_SelectionChanged(Controls::NavigationView const&,
