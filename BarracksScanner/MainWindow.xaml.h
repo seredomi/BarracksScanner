@@ -9,9 +9,9 @@ namespace winrt::BarracksScanner::implementation
     {
         MainWindow()
         {
-            // Xaml objects should not call InitializeComponent during construction.
-            // See https://github.com/microsoft/cppwinrt/tree/master/nuget#initializecomponent
 			AppWindow().SetIcon(L"transparent-square.ico");
+            // not sure why this doesn't work
+            AppWindow().MoveAndResize(Windows::Graphics::RectInt32{ 100, 300, 700, 900 });
         }
 
 
