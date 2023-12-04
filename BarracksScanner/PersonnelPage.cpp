@@ -82,7 +82,8 @@ namespace winrt::BarracksScanner::implementation
         db.executeQuery();
         vector<vector<string>> result = db.result;
 
-        ClearColumns();
+        for (Controls::StackPanel col : set<Controls::StackPanel>{ RankColumn(), LastColumn(), FirstColumn(), GroupColumn(), ButtonColumn() })
+            col.Children().Clear();
 
         for (vector<string> row : result) {
             Person newPerson;
@@ -117,41 +118,6 @@ namespace winrt::BarracksScanner::implementation
             group.Margin(Thickness{ 0,0,8,8 });
             GroupColumn().Children().Append(group);
         }
-    }
-
-    void PersonnelPage::ClearColumns() {
-
-        RankColumn().Children().Clear();
-        Controls::TextBlock rankHeader;
-        rankHeader.Margin(Thickness{ 0,8,8,8 });
-        rankHeader.FontSize(20);
-        rankHeader.FontWeight(Windows::UI::Text::FontWeight{ 600 });
-        rankHeader.Text(L"Rank");
-        RankColumn().Children().Append(rankHeader);
-
-        FirstColumn().Children().Clear();
-        Controls::TextBlock firstHeader;
-        firstHeader.Margin(Thickness{ 0,8,8,8 });
-        firstHeader.FontSize(20);
-        firstHeader.FontWeight(Windows::UI::Text::FontWeight{ 600 });
-        firstHeader.Text(L"First");
-        FirstColumn().Children().Append(firstHeader);
-
-        LastColumn().Children().Clear();
-        Controls::TextBlock lastHeader;
-        lastHeader.Margin(Thickness{ 0,8,8,8 });
-        lastHeader.FontSize(20);
-        lastHeader.FontWeight(Windows::UI::Text::FontWeight{ 600 });
-        lastHeader.Text(L"Last");
-        LastColumn().Children().Append(lastHeader);
-
-        GroupColumn().Children().Clear();
-        Controls::TextBlock groupHeader;
-        groupHeader.Margin(Thickness{ 0,8,8,8 });
-        groupHeader.FontSize(20);
-        groupHeader.FontWeight(Windows::UI::Text::FontWeight{ 600 });
-        groupHeader.Text(L"Group");
-        GroupColumn().Children().Append(groupHeader);
     }
 
     void PersonnelPage::BuildQuery() {
