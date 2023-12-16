@@ -69,7 +69,7 @@ namespace winrt::BarracksScanner::implementation
         lastMatch = "";
         groupMatches = set<string>{};
         roomMatch = "";
-        // FilterCheckChanged(SelectAllGroups(), SelectAllGroups().)
+        // i don't know what args to pass to this func, but this would simplify the code ->  FilterCheckChanged(SelectAllGroups(), SelectAllGroups().)
         for (Controls::CheckBox cb : set<Controls::CheckBox>{ ResidentCheck(), RotationalUnitCheck(), HotelDivartyCheck(), ChainOfCommandCheck() })
 			cb.IsChecked(true);
         RefreshPersonnel();
@@ -82,42 +82,89 @@ namespace winrt::BarracksScanner::implementation
         db.executeQuery();
         vector<vector<string>> result = db.result;
 
-        for (Controls::StackPanel col : set<Controls::StackPanel>{ RankColumn(), LastColumn(), FirstColumn(), GroupColumn(), ButtonColumn() })
-            col.Children().Clear();
+        unsigned int maxRankWidth = 0;
+        unsigned int maxLastWidth = 0;
+        unsigned int maxFirstWidth = 0;
+        unsigned int maxGroupWidth = 0;
+
+        vector<Person> personnel;
+
+        TestStack().Children().Clear();
 
         for (vector<string> row : result) {
             Person newPerson;
-            if (row.size() == 6) {
-				newPerson = Person(row);
-            }
-            Controls::TextBlock rank;
-			rank.Text(newPerson.rank);
-            if (rank.Text().empty())
-                rank.Text(L" ");
-            rank.Margin(Thickness{ 0,0,8,8 });
-            RankColumn().Children().Append(rank);
-
-            Controls::TextBlock last;
-            last.Margin(Thickness{ 0,0,8,8 });
-            last.Text(newPerson.last);
-            if (newPerson.last == L"") {
-                last.Text(L" ");
-            }
-            LastColumn().Children().Append(last);
+            if (row.size() == 6) { newPerson = Person(row); }
+            personnel.push_back(newPerson);
             
-            Controls::TextBlock first;
-            first.Text(newPerson.first);
-            if (newPerson.first == L"") {
-                first.Text(L" ");
-            }
-            first.Margin(Thickness{ 0,0,8,8 });
-            FirstColumn().Children().Append(first);
+            const unsigned int spacerSize = 9;
 
-            Controls::TextBlock group;
-            group.Text(newPerson.group);
-            group.Margin(Thickness{ 0,0,8,8 });
-            GroupColumn().Children().Append(group);
+            Controls::TextBlock rankTB; rankTB.Text(newPerson.rank); rankTB.Measure(Windows::Foundation::Size{ INFINITY, INFINITY });
+            if (rankTB.DesiredSize().Width > maxRankWidth) maxRankWidth = rankTB.DesiredSize().Width + spacerSize;
+            Controls::TextBlock lastTB; lastTB.Text(newPerson.last); lastTB.Measure(Windows::Foundation::Size{ INFINITY, INFINITY });
+            if (lastTB.DesiredSize().Width > maxLastWidth) maxLastWidth = lastTB.DesiredSize().Width + spacerSize;
+            Controls::TextBlock firstTB; firstTB.Text(newPerson.first); firstTB.Measure(Windows::Foundation::Size{ INFINITY, INFINITY });
+            if (firstTB.DesiredSize().Width > maxFirstWidth) maxFirstWidth = firstTB.DesiredSize().Width + spacerSize;
+            Controls::TextBlock groupTB; groupTB.Text(newPerson.group); groupTB.Measure(Windows::Foundation::Size{ INFINITY, INFINITY });
+            if (groupTB.DesiredSize().Width > maxGroupWidth) maxGroupWidth = groupTB.DesiredSize().Width + spacerSize;
+
         }
+
+        for (Person person : personnel) {
+
+			Controls::Button personButton;
+
+            Controls::TextBlock rankTB; rankTB.Text(person.rank); rankTB.MinWidth(maxRankWidth);
+            Controls::TextBlock lastTB; lastTB.Text(person.last); lastTB.MinWidth(maxLastWidth);
+            Controls::TextBlock firstTB; firstTB.Text(person.first); firstTB.MinWidth(maxFirstWidth);
+            Controls::TextBlock groupTB; groupTB.Text(person.group); groupTB.MinWidth(maxGroupWidth);
+
+            Controls::StackPanel personStack;
+            personStack.Orientation(Controls::Orientation::Horizontal);
+            personStack.Children().Append(rankTB); personStack.Children().Append(lastTB); personStack.Children().Append(firstTB); personStack.Children().Append(groupTB); 
+
+            personButton.Content(personStack);
+
+            TestStack().Children().Append(personButton);
+        }
+
+
+        // for (vector<string> row : result) {
+        //     Person newPerson;
+        //     if (row.size() == 6) {
+		// 		newPerson = Person(row);
+        //     }
+        //     else {
+        //         // no results found
+        //         int i = 0;
+        //     }
+        //     Controls::TextBlock rank;
+		// 	rank.Text(newPerson.rank);
+        //     if (rank.Text().empty())
+        //         rank.Text(L" ");
+        //     rank.Margin(Thickness{ 0,0,8,8 });
+        //     RankColumn().Children().Append(rank);
+
+        //     Controls::TextBlock last;
+        //     last.Margin(Thickness{ 0,0,8,8 });
+        //     last.Text(newPerson.last);
+        //     if (newPerson.last == L"") {
+        //         last.Text(L" ");
+        //     }
+        //     LastColumn().Children().Append(last);
+        //     
+        //     Controls::TextBlock first;
+        //     first.Text(newPerson.first);
+        //     if (newPerson.first == L"") {
+        //         first.Text(L" ");
+        //     }
+        //     first.Margin(Thickness{ 0,0,8,8 });
+        //     FirstColumn().Children().Append(first);
+
+        //     Controls::TextBlock group;
+        //     group.Text(newPerson.group);
+        //     group.Margin(Thickness{ 0,0,8,8 });
+        //     GroupColumn().Children().Append(group);
+        // }
     }
 
     void PersonnelPage::BuildQuery() {

@@ -11,34 +11,8 @@
         <StackPanel x:Name="CardStack" Orientation="Vertical" Margin="40,16,0,0" >
             <TextBlock x:Name="PersonnelHeader" FontSize="40" Margin="0,0,0,10" FontWeight="SemiBold" >Personnel</TextBlock>
         <StackPanel Orientation="Horizontal"> <!--holds the list and the filters side by side-->
-            
-            <StackPanel Orientation="Vertical">
-                <StackPanel Orientation="Horizontal"> <!--column titles-->
-                    <StackPanel Orientation="Vertical" Width="70" Margin="0,0,0,10" >
-                        <TextBlock Margin="0,8,8,8" FontSize="20" FontWeight="SemiBold" Text="Rank" />
-                    </StackPanel>
-                    <StackPanel Orientation="Vertical" Width="120" Margin="0,0,0,10" >
-                        <TextBlock Margin="0,8,8,8" FontSize="20" FontWeight="SemiBold" Text="Last" />
-                    </StackPanel>
-                    <StackPanel Orientation="Vertical" Width="120" Margin="0,0,0,10" >
-                        <TextBlock Margin="0,8,8,8" FontSize="20" FontWeight="SemiBold" Text="First" />
-                    </StackPanel>
-                    <StackPanel Orientation="Vertical" Width="110" Margin="0,0,0,10" >
-                        <TextBlock Margin="0,8,8,8" FontSize="20" FontWeight="SemiBold" Text="Group" />
-                    </StackPanel>
-                    <StackPanel Orientation="Vertical" Margin="0,0,0,20" />
-                </StackPanel>
-                <ScrollViewer MaxHeight="400"> <!--columns themselves in a scrollviewer-->
-                    <StackPanel Orientation="Horizontal">
-                        <StackPanel Orientation="Vertical" Width="70" x:Name="RankColumn" Margin="0,0,0,20" />
-                        <StackPanel Orientation="Vertical" Width="120" x:Name="LastColumn" Margin="0,0,0,20" />
-                        <StackPanel Orientation="Vertical" Width="120" x:Name="FirstColumn" Margin="0,0,0,20" />
-                        <StackPanel Orientation="Vertical" Width="110" x:Name="GroupColumn" Margin="0,0,0,20" />
-                        <StackPanel Orientation="Vertical" x:Name="ButtonColumn" Margin="0,0,0,20" />
-                    </StackPanel>
-                </ScrollViewer>
-            </StackPanel>
-            <StackPanel Width="200">
+
+            <StackPanel Width="200" x:Name="Filters">
                 <TextBlock Margin="8,8,8,4" FontSize="20" FontWeight="SemiBold" Text="Filter by:" />
                 <TextBox x:Name="FirstNameFilter" Width="150" PlaceholderText="First name" Margin="8"
                          HorizontalAlignment="Left" TextChanged="FilterTextChanged" />
@@ -61,6 +35,8 @@
                     </DropDownButton.Flyout>
                 </DropDownButton>
             </StackPanel>
+
+            <StackPanel Orientation="Vertical" x:Name="TestStack" />
         </StackPanel>
 
         </StackPanel>
