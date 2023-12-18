@@ -225,19 +225,9 @@ namespace winrt::BarracksScanner::implementation
 	void PersonnelPage::HotelDivartyCheck_Unchecked(IInspectable const&, RoutedEventArgs const&) { groupMatches.erase("Hotel Divarty"); RefreshPersonnel();}
 	void PersonnelPage::ChainOfCommandCheck_Checked(IInspectable const&, RoutedEventArgs const&) { groupMatches.insert("COC"); RefreshPersonnel();}
 	void PersonnelPage::ChainOfCommandCheck_Unchecked(IInspectable const&, RoutedEventArgs const&) { groupMatches.erase("COC"); RefreshPersonnel();}
+
+	void PersonnelPage::SortRadioChecked(IInspectable const&, RoutedEventArgs const&) {
+        Controls::TextBlock tb; tb.Text(L"Radio checked");
+        TitleStack().Children().Append(tb);
+	}
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

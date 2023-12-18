@@ -14,7 +14,8 @@
 
                 <AutoSuggestBox x:Name="PersonnelSearch" MinWidth="250" Margin="0,0,8,8" PlaceholderText="Search by Name, ID, or Room" QueryIcon="Find" TextChanged="PersonnelSearch_TextChanged" />
 
-                <DropDownButton x:Name="GroupSelector" Content="Group" Margin="0,0,8,8">
+                <DropDownButton x:Name="GroupSelector" Margin="0,0,8,8">
+                    <DropDownButton.Content> <FontIcon Glyph="&#xE71C;" /> </DropDownButton.Content>
                     <DropDownButton.Flyout>
                         <Flyout Placement="BottomEdgeAlignedLeft">
                             <StackPanel>
@@ -29,6 +30,50 @@
                             </StackPanel>
                         </Flyout>
                     </DropDownButton.Flyout>
+                </DropDownButton>
+
+                <DropDownButton x:Name="SortSelector" Margin="0,0,8,8">
+                    <DropDownButton.Content> <FontIcon Glyph="&#xE8CB;" /> </DropDownButton.Content>
+                    <DropDownButton.Flyout>
+                        <Flyout Placement="BottomEdgeAlignedLeft">
+
+                        <StackPanel Orientation="Horizontal">
+                            <StackPanel Orientation="Vertical" Width="50" >
+                                <TextBlock   Height="31" />
+                                <TextBlock   Height="32" Text="ID" />
+                                <TextBlock   Height="32" Text="Rank" />
+                                <TextBlock   Height="32" Text="Last" />
+                                <TextBlock   Height="32" Text="First" />
+                                <TextBlock   Height="32" Text="Room" />
+                                <TextBlock   Height="32" Text="Group" />
+                            </StackPanel>
+
+                            <StackPanel Orientation="Vertical"  Width="20" Margin="0,0,15,0" >
+                                <FontIcon Height="25"  Glyph="&#xE70E;" />
+                                <RadioButton Height="32" x:Name="IDAsc" GroupName="SortRadios" Checked="SortRadioChecked" />
+                                <RadioButton Height="32" x:Name="RankAsc" GroupName="SortRadios" Checked="SortRadioChecked" />
+                                <RadioButton Height="32" x:Name="LastAsc" GroupName="SortRadios" Checked="SortRadioChecked" />
+                                <RadioButton Height="32" x:Name="FirstAsc" GroupName="SortRadios" Checked="SortRadioChecked" />
+                                <RadioButton Height="32" x:Name="RoomAsc" GroupName="SortRadios" Checked="SortRadioChecked" />
+                                <RadioButton Height="32" x:Name="GroupAsc" GroupName="SortRadios" Checked="SortRadioChecked" />
+                            </StackPanel>
+
+                            <StackPanel Orientation="Vertical"  Width="20" >
+                                <FontIcon Height="25" Glyph="&#xE70D;" />
+                                <RadioButton Height="32" x:Name="IDDesc" GroupName="SortRadios" Checked="SortRadioChecked" />
+                                <RadioButton Height="32" x:Name="RankDesc" GroupName="SortRadios" Checked="SortRadioChecked" />
+                                <RadioButton Height="32" x:Name="LastDesc" GroupName="SortRadios" Checked="SortRadioChecked" />
+                                <RadioButton Height="32" x:Name="FirstDesc" GroupName="SortRadios" Checked="SortRadioChecked" />
+                                <RadioButton Height="32" x:Name="RoomDesc" GroupName="SortRadios" Checked="SortRadioChecked" />
+                                <RadioButton Height="32" x:Name="GroupDesc" GroupName="SortRadios" Checked="SortRadioChecked" />
+                            </StackPanel>
+                            
+                        </StackPanel>
+                        
+                        </Flyout>
+                    </DropDownButton.Flyout>
+
+                    
                 </DropDownButton>
 
             </StackPanel>
