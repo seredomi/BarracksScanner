@@ -10,6 +10,7 @@ namespace winrt::BarracksScanner::implementation
         std::string query;
         std::string match;
         std::set<std::string> groupMatches;
+        std::string order;
 
         PersonnelPage() {
         }

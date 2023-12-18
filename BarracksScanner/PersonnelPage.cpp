@@ -72,11 +72,33 @@ namespace winrt::BarracksScanner::implementation
 	void PersonnelPage::PageLoaded(IInspectable const&, RoutedEventArgs const&) {
         match = "";
         groupMatches = set<string>{};
+        order = "";
         // i don't know what args to pass to this func, but this would simplify the code ->  FilterCheckChanged(SelectAllGroups(), SelectAllGroups().)
         for (Controls::CheckBox cb : set<Controls::CheckBox>{ ResidentCheck(), RotationalUnitCheck(), HotelDivartyCheck(), ChainOfCommandCheck() })
 			cb.IsChecked(true);
+        LastAsc().IsChecked(true);
         RefreshPersonnel();
 	}
+
+    void PersonnelPage::BuildQuery() {
+
+        string res = "SELECT id,rank,lastName,firstName,room,groupName FROM personnel";
+        res += " WHERE ( id LIKE '%" + match + "%'";
+        res += " OR firstName LIKE '%" + match + "%' OR lastName LIKE '%" + match + "%'";
+        res += " OR room LIKE '%" + match + "%' )";
+        res += " AND groupName IN (";
+        for (string group : groupMatches) {
+            res += "'" + group + "',";
+        }
+        if (groupMatches.size() != 0) // strip final ',' before adding ')'
+			res = res.substr(0, res.size() - 1); 
+        res += ")";
+        if (order != "") {
+            res += " ORDER BY " + order;
+        }
+
+        query = res + " ;";
+    }
 
     void PersonnelPage::RefreshPersonnel() {
 
@@ -88,7 +110,6 @@ namespace winrt::BarracksScanner::implementation
 
         DataStack().Children().Clear();
         ColumnHeaders().Children().Clear();
-
 
         float minRankWidth = 0;
         float minLastWidth = 0;
@@ -160,61 +181,6 @@ namespace winrt::BarracksScanner::implementation
             DataStack().Children().Append(personButton);
         }
 
-
-        // for (vector<string> row : result) {
-        //     Person newPerson;
-        //     if (row.size() == 6) {
-		// 		newPerson = Person(row);
-        //     }
-        //     else {
-        //         // no results found
-        //         int i = 0;
-        //     }
-        //     Controls::TextBlock rank;
-		// 	rank.Text(newPerson.rank);
-        //     if (rank.Text().empty())
-        //         rank.Text(L" ");
-        //     rank.Margin(Thickness{ 0,0,8,8 });
-        //     RankColumn().Children().Append(rank);
-
-        //     Controls::TextBlock last;
-        //     last.Margin(Thickness{ 0,0,8,8 });
-        //     last.Text(newPerson.last);
-        //     if (newPerson.last == L"") {
-        //         last.Text(L" ");
-        //     }
-        //     LastColumn().Children().Append(last);
-        //     
-        //     Controls::TextBlock first;
-        //     first.Text(newPerson.first);
-        //     if (newPerson.first == L"") {
-        //         first.Text(L" ");
-        //     }
-        //     first.Margin(Thickness{ 0,0,8,8 });
-        //     FirstColumn().Children().Append(first);
-
-        //     Controls::TextBlock group;
-        //     group.Text(newPerson.group);
-        //     group.Margin(Thickness{ 0,0,8,8 });
-        //     GroupColumn().Children().Append(group);
-        // }
-    }
-
-    void PersonnelPage::BuildQuery() {
-
-        string res = "SELECT id,rank,lastName,firstName,room,groupName FROM personnel";
-        res += " WHERE ( id LIKE '%" + match + "%'";
-        res += " OR firstName LIKE '%" + match + "%' OR lastName LIKE '%" + match + "%'";
-        res += " OR room LIKE '%" + match + "%' )";
-        res += " AND groupName IN (";
-        for (string group : groupMatches) {
-            res += "'" + group + "',";
-        }
-        if (groupMatches.size() != 0) // strip final ',' before adding ')'
-			res = res.substr(0, res.size() - 1); 
-        res += ");";
-
-        query = res;
     }
 
     void PersonnelPage::ResidentCheck_Checked(IInspectable const&, RoutedEventArgs const&) { groupMatches.insert("Resident"); RefreshPersonnel(); }
@@ -226,8 +192,20 @@ namespace winrt::BarracksScanner::implementation
 	void PersonnelPage::ChainOfCommandCheck_Checked(IInspectable const&, RoutedEventArgs const&) { groupMatches.insert("COC"); RefreshPersonnel();}
 	void PersonnelPage::ChainOfCommandCheck_Unchecked(IInspectable const&, RoutedEventArgs const&) { groupMatches.erase("COC"); RefreshPersonnel();}
 
-	void PersonnelPage::SortRadioChecked(IInspectable const&, RoutedEventArgs const&) {
-        Controls::TextBlock tb; tb.Text(L"Radio checked");
-        TitleStack().Children().Append(tb);
+	void PersonnelPage::SortRadioChecked(IInspectable const& sender, RoutedEventArgs const&) {
+        if (sender == IDAsc()) order = "id ASC";
+        else if (sender == IDDesc()) order = "id DESC";
+        else if (sender == RankAsc()) order = "rank ASC";
+        else if (sender == RankDesc()) order = "rank DESC";
+        else if (sender == LastAsc()) order = "lastName ASC";
+        else if (sender == LastDesc()) order = "lastName DESC";
+        else if (sender == FirstAsc()) order = "firstName ASC";
+        else if (sender == FirstDesc()) order = "firstName DESC";
+        else if (sender == GroupAsc()) order = "groupName ASC";
+        else if (sender == GroupDesc()) order = "groupName DESC";
+        else if (sender == RoomAsc()) order = "room ASC";
+        else if (sender == RoomDesc()) order = "room DESC";
+
+        RefreshPersonnel();
 	}
 }
