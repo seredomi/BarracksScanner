@@ -8,17 +8,13 @@
     mc:Ignorable="d"
     Loaded="PageLoaded"
     >
-        <StackPanel x:Name="CardStack" Orientation="Vertical" Margin="40,16,0,0" >
+        <StackPanel x:Name="TitleStack" Orientation="Vertical" Margin="40,16,0,0" >
             <TextBlock x:Name="PersonnelHeader" FontSize="40" Margin="0,0,0,10" FontWeight="SemiBold" >Personnel</TextBlock>
-        <StackPanel Orientation="Horizontal"> <!--holds the list and the filters side by side-->
+            <StackPanel x:Name="FilterAndSort" Orientation="Horizontal">
 
-            <StackPanel Width="200" x:Name="Filters">
-                <TextBlock Margin="8,8,8,4" FontSize="20" FontWeight="SemiBold" Text="Filter by:" />
-                <TextBox x:Name="FirstNameFilter" Width="150" PlaceholderText="First name" Margin="8"
-                         HorizontalAlignment="Left" TextChanged="FilterTextChanged" />
-                <TextBox x:Name="LastNameFilter" Width="150" PlaceholderText="Last name" Margin="8"
-                         HorizontalAlignment="Left" TextChanged="FilterTextChanged" />
-                <DropDownButton x:Name="GroupSelector" Content="Group" Margin="8">
+                <AutoSuggestBox x:Name="PersonnelSearch" MinWidth="250" Margin="0,0,8,8" PlaceholderText="Search by Name, ID, or Room" QueryIcon="Find" TextChanged="PersonnelSearch_TextChanged" />
+
+                <DropDownButton x:Name="GroupSelector" Content="Group" Margin="0,0,8,8">
                     <DropDownButton.Flyout>
                         <Flyout Placement="BottomEdgeAlignedLeft">
                             <StackPanel>
@@ -34,10 +30,16 @@
                         </Flyout>
                     </DropDownButton.Flyout>
                 </DropDownButton>
+
             </StackPanel>
 
-            <StackPanel Orientation="Vertical" x:Name="TestStack" />
-        </StackPanel>
+            <StackPanel x:Name="ColumnHeaders" Orientation="Horizontal" />
+
+            <ScrollContentPresenter>
+                <StackPanel Orientation="Vertical" x:Name="DataStack">
+                </StackPanel>
+            </ScrollContentPresenter>
+
 
         </StackPanel>
 
