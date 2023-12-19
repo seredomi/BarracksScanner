@@ -7,12 +7,8 @@ namespace winrt::BarracksScanner::implementation
 {
     struct MainWindow : MainWindowT<MainWindow>
     {
-        MainWindow()
-        {
-			AppWindow().SetIcon(L"transparent-square.ico");
-            // not sure why this doesn't work
+        MainWindow() {
         }
-
 
         void NavView_Loaded(Windows::Foundation::IInspectable const&,
             Microsoft::UI::Xaml::RoutedEventArgs const);

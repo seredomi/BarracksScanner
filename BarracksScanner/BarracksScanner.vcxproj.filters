@@ -8,7 +8,6 @@
     <Page Include="PersonnelPage.xaml" />
     <Page Include="ScannerPage.xaml" />
     <Page Include="LogsPage.xaml" />
-    <Page Include="AddPerson.xaml" />
   </ItemGroup>
   <ItemGroup>
     <Midl Include="MainWindow.idl" />

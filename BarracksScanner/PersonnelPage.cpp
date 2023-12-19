@@ -207,4 +207,19 @@ namespace winrt::BarracksScanner::implementation
 
         RefreshPersonnel();
 	}
+	void PersonnelPage::NewPerson_Click(IInspectable const& sender, RoutedEventArgs const& e) {
+
+        Controls::ContentDialog dialog = PersonDetails();
+        Controls::TextBlock title; title.FontWeight(Windows::UI::Text::FontWeight{ 600 }); title.Text(L"Create New Person"); 
+        dialog.Title(title);
+        dialog.XamlRoot(this->XamlRoot());
+
+        auto res = dialog.ShowAsync();
+
+        Controls::TextBlock tb; tb.Text(L"TEST!");
+        DataStack().Children().Append(tb);
+
+	}
 }
+
+

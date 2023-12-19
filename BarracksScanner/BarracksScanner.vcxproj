@@ -114,9 +114,6 @@
     <Manifest Include="app.manifest" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="AddPerson.xaml.h">
-      <DependentUpon>AddPerson.xaml</DependentUpon>
-    </ClInclude>
     <ClInclude Include="LogsPage.h">
       <DependentUpon>LogsPage.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -142,9 +139,6 @@
   </ItemGroup>
   <ItemGroup>
     <ApplicationDefinition Include="App.xaml" />
-    <Page Include="AddPerson.xaml">
-      <SubType>Designer</SubType>
-    </Page>
     <Page Include="LogsPage.xaml">
       <SubType>Designer</SubType>
     </Page>
@@ -157,9 +151,6 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="AddPerson.xaml.cpp">
-      <DependentUpon>AddPerson.xaml</DependentUpon>
-    </ClCompile>
     <ClCompile Include="LogsPage.cpp">
       <DependentUpon>LogsPage.xaml</DependentUpon>
       <SubType>Code</SubType>

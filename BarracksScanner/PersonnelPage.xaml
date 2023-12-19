@@ -86,7 +86,7 @@
                     
                 </DropDownButton>
 
-            <Button x:Name="NewPerson" Margin="0,0,8,8" >
+            <Button x:Name="NewPerson" Margin="0,0,8,8" Click="NewPerson_Click" >
                 <Button.Content>
                     <StackPanel Orientation="Horizontal">
                         <FontIcon FontSize="12" Margin="0,0,5,0" Glyph="&#xE710;" />
@@ -108,6 +108,54 @@
 
         </StackPanel>
 
+        <ContentDialog x:Name="PersonDetails"
+                       PrimaryButtonText="Save"
+                       CloseButtonText="Cancel"
+                       Title=""
+                       >
+            
+            <StackPanel HorizontalAlignment="Stretch" VerticalAlignment="Stretch" >
+
+                <TextBox x:Name="IDInput" PlaceholderText="ID (click here before scanning)" Margin="8"/>
+
+                <StackPanel Orientation="Horizontal" >
+                    <!-- maybe turn this into a tree or separate columns -->
+                    <ComboBox x:Name="RankInput" PlaceholderText="Rank" Margin="8">
+                            <ComboBoxItem Content="PVT" /> <ComboBoxItem Content="PV2" /> <ComboBoxItem Content="PFC" />
+                            <ComboBoxItem Content="SPC" /> <ComboBoxItem Content="CPL" /> <ComboBoxItem Content="SGT" />
+                            <ComboBoxItem Content="SSG" /> <ComboBoxItem Content="SFC" /> <ComboBoxItem Content="MSG" />
+                            <ComboBoxItem Content="1SG" /> <ComboBoxItem Content="SGM" /> <ComboBoxItem Content="CSM" />
+                            <ComboBoxItem Content="WO1" /> <ComboBoxItem Content="CW2" /> <ComboBoxItem Content="CW3" />
+                            <ComboBoxItem Content="CW4" /> <ComboBoxItem Content="CW5" /> <ComboBoxItem Content="2LT" />
+                            <ComboBoxItem Content="1LT" /> <ComboBoxItem Content="CPT" /> <ComboBoxItem Content="MAJ" />
+                            <ComboBoxItem Content="LTC" /> <ComboBoxItem Content="COL" />
+                        
+                        <ComboBoxItem Content="CIV" />
+                            <ComboBoxItem Content="CTR" />
+                    </ComboBox>
+                    <ComboBox x:Name="GroupInput" PlaceholderText="Group" Margin="8">
+                        <ComboBoxItem Content="Resident" />
+                        <ComboBoxItem Content="Rotational Unit" />
+                        <ComboBoxItem Content="Hotel Divarty" />
+                        <ComboBoxItem Content="Chain of Command" />
+                    </ComboBox>
+                </StackPanel>
+
+                <StackPanel Orientation="Horizontal">
+                    <TextBox x:Name="FirstInput" Width="200" PlaceholderText="First name" Margin="8"/>
+                    <TextBox x:Name="LastInput" Width="200" PlaceholderText="Last name" Margin="8"/>
+                </StackPanel>
+
+                <StackPanel Orientation="Horizontal" >
+                    <TextBox x:Name="RoomInput" PlaceholderText="Room" Margin="8" />
+                    <DatePicker x:Name="DateInput" Margin="8" />
+                </StackPanel>
+
+            </StackPanel>
+            
+        </ContentDialog>
     </StackPanel>
 
+        
+        
 </Page>
