@@ -15,7 +15,12 @@
                 <AutoSuggestBox x:Name="PersonnelSearch" MinWidth="250" Margin="0,0,8,8" PlaceholderText="Search by Name, ID, or Room" QueryIcon="Find" TextChanged="PersonnelSearch_TextChanged" />
 
                 <DropDownButton x:Name="GroupSelector" Margin="0,0,8,8">
-                    <DropDownButton.Content> <FontIcon Glyph="&#xE71C;" /> </DropDownButton.Content>
+                    <DropDownButton.Content>
+                        <StackPanel Orientation="Horizontal" >
+                            <FontIcon FontSize="12" Margin="0,0,5,0" Glyph="&#xE71C;" />
+                            <TextBlock Text="Filter" />
+                        </StackPanel>
+                    </DropDownButton.Content>
                     <DropDownButton.Flyout>
                         <Flyout Placement="BottomEdgeAlignedLeft">
                             <StackPanel>
@@ -33,7 +38,12 @@
                 </DropDownButton>
 
                 <DropDownButton x:Name="SortSelector" Margin="0,0,8,8">
-                    <DropDownButton.Content> <FontIcon Glyph="&#xE8CB;" /> </DropDownButton.Content>
+                    <DropDownButton.Content>
+                    <StackPanel Orientation="Horizontal">
+                        <FontIcon FontSize="12" Margin="0,0,5,0" Glyph="&#xE8CB;" />
+                        <TextBlock Text="Sort" />
+                    </StackPanel>
+                    </DropDownButton.Content>
                     <DropDownButton.Flyout>
                         <Flyout Placement="BottomEdgeAlignedLeft">
 
@@ -76,16 +86,28 @@
                     
                 </DropDownButton>
 
-            </StackPanel>
-
-            <StackPanel x:Name="ColumnHeaders" Orientation="Horizontal" />
-
-            <ScrollContentPresenter>
-                <StackPanel Orientation="Vertical" x:Name="DataStack">
-                </StackPanel>
-            </ScrollContentPresenter>
-
+            <Button x:Name="NewPerson" Margin="0,0,8,8" >
+                <Button.Content>
+                    <StackPanel Orientation="Horizontal">
+                        <FontIcon FontSize="12" Margin="0,0,5,0" Glyph="&#xE710;" />
+                        <TextBlock Text="Add" />
+                    </StackPanel>
+                </Button.Content>
+            </Button>
 
         </StackPanel>
+
+
+        <StackPanel x:Name="TestStack" CornerRadius="10" Margin="0,15,0,0"  Width="450" Height="430" HorizontalAlignment="Left" Orientation="Vertical" Background="#f2f2f2" >
+
+            <StackPanel x:Name="ColumnHeaders" Margin="20, 10, 0, 10" Orientation="Horizontal" />
+
+            <ScrollViewer  Margin="10,0,0,10" Height="370" Width="430" HorizontalAlignment="Left">
+                <StackPanel Orientation="Vertical" x:Name="DataStack"  />
+            </ScrollViewer>
+
+        </StackPanel>
+
+    </StackPanel>
 
 </Page>

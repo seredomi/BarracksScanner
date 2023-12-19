@@ -118,7 +118,7 @@ namespace winrt::BarracksScanner::implementation
 
         vector<Person> personnel;
 
-		const float spacerSize = 9;
+		const float spacerSize = 11;
 
         // fill personnel vector and calculates minimum width per column
         for (vector<string> row : result) {
@@ -153,7 +153,6 @@ namespace winrt::BarracksScanner::implementation
 				tb.FontWeight(Windows::UI::Text::FontWeight{ 600 });
 				ColumnHeaders().Children().Append(tb);
 			}
-			ColumnHeaders().Margin(Thickness{10, 0, 0, 10});
         }
 
         for (Person person : personnel) {
