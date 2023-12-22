@@ -207,19 +207,60 @@ namespace winrt::BarracksScanner::implementation
 
         RefreshPersonnel();
 	}
-	void PersonnelPage::NewPerson_Click(IInspectable const& sender, RoutedEventArgs const& e) {
+	void PersonnelPage::NewPerson_Click(IInspectable const&, RoutedEventArgs const&) {
 
-        Controls::ContentDialog dialog = PersonDetails();
+        Controls::ContentDialog dialog = PersonInfo();
         Controls::TextBlock title; title.FontWeight(Windows::UI::Text::FontWeight{ 600 }); title.Text(L"Create New Person"); 
         dialog.Title(title);
         dialog.XamlRoot(this->XamlRoot());
 
         auto res = dialog.ShowAsync();
+	}
 
-        Controls::TextBlock tb; tb.Text(L"TEST!");
-        DataStack().Children().Append(tb);
+    void PersonnelPage::PersonInfo_TextChanged(IInspectable const&, Controls::TextChangedEventArgs const&) { VerifyInput(); }
+    void PersonnelPage::PersonInfo_SelectionChanged(IInspectable const&, Controls::SelectionChangedEventArgs const&) { VerifyInput(); }
+	void PersonnelPage::PersonInfo_DateChanged(IInspectable const&, Controls::DatePickerValueChangedEventArgs const&) { VerifyInput(); }
 
+    void PersonnelPage::PersonInfoError(Controls::Control control, hstring message) {
+        PersonInfoErrMsg().Text(message);
+    }
+
+    void PersonnelPage::VerifyInput() {
+
+        bool pass = true;
+
+        // empty inputs
+        for (Controls::TextBox t : vector<Controls::TextBox>{ IDInput(), FirstInput(), LastInput(), }) {
+            string in = to_string(t.Text());
+            if (in == "") PersonInfo().IsPrimaryButtonEnabled(false);
+        }
+        for (Controls::ComboBox c : vector<Controls::ComboBox>{ GroupInput(), RankInput() })
+            if (c.SelectedIndex() == -1) pass = false;
+		if (DateInput().SelectedDate() == NULL) pass = false;
+
+        // bad chars
+        for (Controls::TextBox t : vector<Controls::TextBox>{ IDInput(), FirstInput(), LastInput(), RoomInput() }) {
+            string in = to_string(t.Text());
+            if (in.find(';') != -1 || in.find('\'') != -1 || in.find('"') != -1 || in.find('.') != -1) {
+                PersonInfoErrMsg().Text(L"Text fields cannot contain the following characters: ' \" ., ;");
+                pass = false;
+            }
+		}
+
+        if (pass) {
+            PersonInfoErrMsg().Text(L"");
+            PersonInfo().IsPrimaryButtonEnabled(true);
+        }
+    }
+
+	void PersonnelPage::PersonInfo_Closed(Controls::ContentDialog const& sender, Controls::ContentDialogClosedEventArgs const& args) {
+        // clears the dialog
+        IDInput().Text(L"");
+        RankInput().SelectedIndex(-1);
+        GroupInput().SelectedIndex(-1);
+        FirstInput().Text(L"");
+        LastInput().Text(L"");
+        RoomInput().Text(L"");
+        DateInput().SelectedDate(NULL);
 	}
 }
-
-

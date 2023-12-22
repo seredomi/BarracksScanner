@@ -108,32 +108,47 @@
 
         </StackPanel>
 
-        <ContentDialog x:Name="PersonDetails"
+        <ContentDialog x:Name="PersonInfo"
                        PrimaryButtonText="Save"
+                       IsPrimaryButtonEnabled="False"
                        CloseButtonText="Cancel"
                        Title=""
+                       Closed="PersonInfo_Closed"
                        >
             
-            <StackPanel HorizontalAlignment="Stretch" VerticalAlignment="Stretch" >
+            <StackPanel x:Name="PersonInfoStack" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" >
+                <TextBox x:Name="IDInput" PlaceholderText="ID (click here, then scan back of ID)" Margin="8" TextChanged="PersonInfo_TextChanged" CharacterCasing="Upper" />
 
-                <TextBox x:Name="IDInput" PlaceholderText="ID (click here before scanning)" Margin="8"/>
-
+                <!-- maybe convert to a tree or separate columns ? -->
                 <StackPanel Orientation="Horizontal" >
-                    <!-- maybe turn this into a tree or separate columns -->
-                    <ComboBox x:Name="RankInput" PlaceholderText="Rank" Margin="8">
-                            <ComboBoxItem Content="PVT" /> <ComboBoxItem Content="PV2" /> <ComboBoxItem Content="PFC" />
-                            <ComboBoxItem Content="SPC" /> <ComboBoxItem Content="CPL" /> <ComboBoxItem Content="SGT" />
-                            <ComboBoxItem Content="SSG" /> <ComboBoxItem Content="SFC" /> <ComboBoxItem Content="MSG" />
-                            <ComboBoxItem Content="1SG" /> <ComboBoxItem Content="SGM" /> <ComboBoxItem Content="CSM" />
-                            <ComboBoxItem Content="WO1" /> <ComboBoxItem Content="CW2" /> <ComboBoxItem Content="CW3" />
-                            <ComboBoxItem Content="CW4" /> <ComboBoxItem Content="CW5" /> <ComboBoxItem Content="2LT" />
-                            <ComboBoxItem Content="1LT" /> <ComboBoxItem Content="CPT" /> <ComboBoxItem Content="MAJ" />
-                            <ComboBoxItem Content="LTC" /> <ComboBoxItem Content="COL" />
-                        
-                        <ComboBoxItem Content="CIV" />
+                    <ComboBox x:Name="RankInput" PlaceholderText="Rank" SelectionChanged="PersonInfo_SelectionChanged" Margin="8">
+                            <ComboBoxItem Content="PVT" />
+                            <ComboBoxItem Content="PV2" />
+                            <ComboBoxItem Content="PFC" />
+                            <ComboBoxItem Content="SPC" />
+                            <ComboBoxItem Content="CPL" />
+                            <ComboBoxItem Content="SGT" />
+                            <ComboBoxItem Content="SSG" />
+                            <ComboBoxItem Content="SFC" />
+                            <ComboBoxItem Content="MSG" />
+                            <ComboBoxItem Content="1SG" />
+                            <ComboBoxItem Content="SGM" />
+                            <ComboBoxItem Content="CSM" />
+                            <ComboBoxItem Content="WO1" />
+                            <ComboBoxItem Content="CW2" />
+                            <ComboBoxItem Content="CW3" />
+                            <ComboBoxItem Content="CW4" />
+                            <ComboBoxItem Content="CW5" />
+                            <ComboBoxItem Content="2LT" />
+                            <ComboBoxItem Content="1LT" />
+                            <ComboBoxItem Content="CPT" />
+                            <ComboBoxItem Content="MAJ" />
+                            <ComboBoxItem Content="LTC" />
+                            <ComboBoxItem Content="COL" />
+                            <ComboBoxItem Content="CIV" />
                             <ComboBoxItem Content="CTR" />
                     </ComboBox>
-                    <ComboBox x:Name="GroupInput" PlaceholderText="Group" Margin="8">
+                    <ComboBox x:Name="GroupInput" PlaceholderText="Group" SelectionChanged="PersonInfo_SelectionChanged" Margin="8">
                         <ComboBoxItem Content="Resident" />
                         <ComboBoxItem Content="Rotational Unit" />
                         <ComboBoxItem Content="Hotel Divarty" />
@@ -142,20 +157,20 @@
                 </StackPanel>
 
                 <StackPanel Orientation="Horizontal">
-                    <TextBox x:Name="FirstInput" Width="200" PlaceholderText="First name" Margin="8"/>
-                    <TextBox x:Name="LastInput" Width="200" PlaceholderText="Last name" Margin="8"/>
+                    <TextBox x:Name="FirstInput" Width="200" PlaceholderText="First name" TextChanged="PersonInfo_TextChanged" Margin="8"/>
+                    <TextBox x:Name="LastInput" Width="200" PlaceholderText="Last name" TextChanged="PersonInfo_TextChanged" Margin="8"/>
                 </StackPanel>
 
                 <StackPanel Orientation="Horizontal" >
-                    <TextBox x:Name="RoomInput" PlaceholderText="Room" Margin="8" />
-                    <DatePicker x:Name="DateInput" Margin="8" />
+                    <TextBox x:Name="RoomInput" PlaceholderText="Room" Margin="8" TextChanged="PersonInfo_TextChanged" CharacterCasing="Upper" />
+                    <DatePicker x:Name="DateInput" Margin="8" DateChanged="PersonInfo_DateChanged" />
                 </StackPanel>
+
+                <TextBlock x:Name="PersonInfoErrMsg" Foreground="Red" FontStyle="Italic" Margin="8" />
 
             </StackPanel>
             
         </ContentDialog>
     </StackPanel>
-
-        
         
 </Page>
