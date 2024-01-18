@@ -110,6 +110,7 @@
 
         <ContentDialog x:Name="PersonInfo"
                        PrimaryButtonText="Save"
+                       PrimaryButtonClick="PersonInfo_PrimaryButtonClick"
                        IsPrimaryButtonEnabled="False"
                        CloseButtonText="Cancel"
                        Title=""

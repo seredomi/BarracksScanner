@@ -364,3 +364,5 @@ FodyWeavers.xsd
 /tour construction diagaram.pptx
 /barracks.db
 *sqlite3*
+/BarracksScanner/barracks.db
+*.db

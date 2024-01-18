@@ -80,6 +80,26 @@ namespace winrt::BarracksScanner::implementation
         RefreshPersonnel();
 	}
 
+    void PersonnelPage::BuildCreate() {
+        hstring res = L"INSERT INTO personnel (id, rank, lastName, firstName, room, groupName, leaveDate) VALUES ";
+        res = res + L"('" + IDInput().Text();
+        // res += "', '" + to_string(RankInput().SelectedValue().try_as<Controls::ComboBox>().Text());
+        // res = res + unbox_value<hstring>(RankInput().Items().GetAt(RankInput().SelectedIndex()));
+        res = res + L"', '" + LastInput().Text();
+        res = res + L"', '" + FirstInput().Text();
+        res = res + L"', '" + RoomInput().Text();
+        // res += "', '" + to_string(GroupInput().SelectedValue().try_as<Controls::ComboBox>().Text());
+
+        Windows::Foundation::DateTime dt = DateInput().Date(); Windows::Globalization::Calendar cal; cal.SetDateTime(dt);
+		res = res + L"', '" + cal.YearAsString() + L"-" + cal.MonthAsNumericString() + L"-" + cal.DayAsString();
+        res = res + L"');";
+
+
+        Controls::TextBlock tb;
+        tb.Text(to_hstring(res));
+        TitleStack().Children().Append(tb);
+
+    }
     void PersonnelPage::BuildQuery() {
 
         string res = "SELECT id,rank,lastName,firstName,room,groupName FROM personnel";
@@ -220,13 +240,9 @@ namespace winrt::BarracksScanner::implementation
     void PersonnelPage::PersonInfo_TextChanged(IInspectable const&, Controls::TextChangedEventArgs const&) { VerifyInput(); }
     void PersonnelPage::PersonInfo_SelectionChanged(IInspectable const&, Controls::SelectionChangedEventArgs const&) { VerifyInput(); }
 	void PersonnelPage::PersonInfo_DateChanged(IInspectable const&, Controls::DatePickerValueChangedEventArgs const&) { VerifyInput(); }
-
-    void PersonnelPage::PersonInfoError(Controls::Control control, hstring message) {
-        PersonInfoErrMsg().Text(message);
-    }
+    void PersonnelPage::PersonInfoError(Controls::Control control, hstring message) { PersonInfoErrMsg().Text(message); }
 
     void PersonnelPage::VerifyInput() {
-
         bool pass = true;
 
         // empty inputs
@@ -253,7 +269,7 @@ namespace winrt::BarracksScanner::implementation
         }
     }
 
-	void PersonnelPage::PersonInfo_Closed(Controls::ContentDialog const& sender, Controls::ContentDialogClosedEventArgs const& args) {
+	void PersonnelPage::PersonInfo_Closed(Controls::ContentDialog const&, Controls::ContentDialogClosedEventArgs const&) {
         // clears the dialog
         IDInput().Text(L"");
         RankInput().SelectedIndex(-1);
@@ -263,4 +279,11 @@ namespace winrt::BarracksScanner::implementation
         RoomInput().Text(L"");
         DateInput().SelectedDate(NULL);
 	}
+
+
+	void PersonnelPage::PersonInfo_PrimaryButtonClick(Controls::ContentDialog const&, Controls::ContentDialogButtonClickEventArgs const&) {
+        BuildCreate();
+	}
 }
+
+
